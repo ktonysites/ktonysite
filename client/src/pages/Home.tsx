@@ -189,23 +189,35 @@ export default function Home() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [contactOpen, selectedProject]);
 
-  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
     const brief = String(formData.get("brief") ?? "").trim();
-    const subject = `Website enquiry from ${name || "a prospective client"}`;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      "",
-      "Project brief:",
-      brief,
-    ].join("\\n");
-    window.location.href = `mailto:ktony7854@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
-    toast.success("Your email app is ready with the project brief.");
+
+    formData.set("_subject", `Website enquiry from ${name || "a prospective client"}`);
+    formData.set("_replyto", email);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mljeoyoo", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        toast.success("Message sent. Tony will reply shortly.");
+      } else {
+        const data = (await response.json()) as { error?: string };
+        toast.error(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      toast.error("Network error. Please try again.");
+    }
   }
 
   function openContact() {
@@ -574,10 +586,10 @@ export default function Home() {
                   <label className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5f7480]">Your email<input required type="email" name="email" className="mt-2 block w-full border-b border-[#16212b]/30 bg-transparent px-0 py-3 text-base font-sans normal-case tracking-normal text-[#16212b] outline-none placeholder:text-[#16212b]/35 focus:border-[#5f7480]" placeholder="you@yourdomain.com" /></label>
                 </div>
                 <label className="mt-6 block font-mono text-[10px] uppercase tracking-[0.12em] text-[#5f7480]">What are we making?<textarea required name="brief" rows={4} className="mt-2 block w-full resize-none border-b border-[#16212b]/30 bg-transparent px-0 py-3 text-base font-sans normal-case tracking-normal text-[#16212b] outline-none placeholder:text-[#16212b]/35 focus:border-[#5f7480]" placeholder="A new site, a sharper product, a system that needs to make sense…" /></label>
-                <div className="mt-8 flex flex-wrap items-center justify-between gap-4"><span className="max-w-xs font-mono text-[9px] uppercase tracking-[0.1em] text-[#16212b]/45">Submitting opens your email app with the enquiry addressed to Tony.</span><button type="submit" className="button-ink">Send the brief <ArrowUpRight size={15} /></button></div>
+                <div className="mt-8 flex flex-wrap items-center justify-between gap-4"><span className="max-w-xs font-mono text-[9px] uppercase tracking-[0.1em] text-[#16212b]/45">Submitting sends your enquiry directly to Tony.</span><button type="submit" className="button-ink">Send the brief <ArrowUpRight size={15} /></button></div>
               </form>
             ) : (
-              <div className="py-8"><div className="flex size-12 items-center justify-center bg-[#c6d45a]"><Check size={22} /></div><h2 id="contact-dialog-title" className="mt-7 text-4xl font-semibold tracking-[-0.06em]">Signal received.</h2><p className="mt-4 max-w-md text-base leading-7 text-[#16212b]/65">Your email app should now have a ready-to-send enquiry addressed to ktony7854@gmail.com. If it did not open, email the brief directly from your inbox.</p><button type="button" className="button-ghost mt-8" onClick={() => setContactOpen(false)}>Close panel <X size={14} /></button></div>
+              <div className="py-8"><div className="flex size-12 items-center justify-center bg-[#c6d45a]"><Check size={22} /></div><h2 id="contact-dialog-title" className="mt-7 text-4xl font-semibold tracking-[-0.06em]">Signal received.</h2><p className="mt-4 max-w-md text-base leading-7 text-[#16212b]/65">Your enquiry has been sent to ktony7854@gmail.com. Tony will reply shortly.</p><button type="button" className="button-ghost mt-8" onClick={() => setContactOpen(false)}>Close panel <X size={14} /></button></div>
             )}
           </div>
         </div>
