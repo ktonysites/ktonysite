@@ -26,6 +26,7 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 const heroImage = "manus-storage/tony-ken-hero-systems_4497caad.jpg";
 const markImage = "manus-storage/tony-ken-mark_73945108.png";
