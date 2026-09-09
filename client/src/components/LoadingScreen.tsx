@@ -6,7 +6,7 @@ export default function LoadingScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 1600);
+    }, 2800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,7 +33,7 @@ export default function LoadingScreen() {
           gap: 1.5rem;
           background: #16212b;
           color: #f7f8f5;
-          animation: loading-fade 600ms 1400ms var(--ease-out) forwards;
+          animation: loading-fade 600ms 2200ms var(--ease-out) forwards;
         }
         .loading-mark {
           position: relative;
@@ -41,7 +41,7 @@ export default function LoadingScreen() {
           size: 64px;
           align-items: center;
           justify-content: center;
-          animation: loading-scale 1600ms var(--ease-out) both;
+          animation: loading-scale 2800ms var(--ease-out) both;
         }
         .loading-mark::before,
         .loading-mark::after {
@@ -70,7 +70,7 @@ export default function LoadingScreen() {
           height: 1px;
           background: linear-gradient(90deg, transparent, #c6d45a, transparent);
           opacity: 0.7;
-          animation: loading-line 1600ms var(--ease-out) both;
+          animation: loading-line 2800ms var(--ease-out) both;
         }
         @keyframes loading-scale {
           0% { opacity: 0; transform: scale(0.92); }
