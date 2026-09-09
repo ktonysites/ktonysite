@@ -27,12 +27,12 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-const heroImage = "/manus-storage/tony-ken-hero-systems_4497caad.jpg";
-const markImage = "/manus-storage/tony-ken-mark_73945108.png";
+const heroImage = "manus-storage/tony-ken-hero-systems_4497caad.jpg";
+const markImage = "manus-storage/tony-ken-mark_73945108.png";
 const projectImages = {
-  network: "/manus-storage/tony-ken-network-v2_525cd75f.jpg",
-  interface: "/manus-storage/tony-ken-interface-v2_ba1fe302.jpg",
-  security: "/manus-storage/tony-ken-security-v2_39cf273f.jpg",
+  network: "manus-storage/tony-ken-network-v2_525cd75f.jpg",
+  interface: "manus-storage/tony-ken-interface-v2_ba1fe302.jpg",
+  security: "manus-storage/tony-ken-security-v2_39cf273f.jpg",
 };
 
 const navItems = [
