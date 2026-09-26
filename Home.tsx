@@ -25,19 +25,15 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import Assistant from "./Assistant";
+import { featuredProjects, projects } from "./projectData";
 
-const heroImage = "/manus-storage/tony-ken-hero-systems_4497caad.jpg";
-const markImage = "/manus-storage/tony-ken-mark_73945108.png";
-const projectImages = {
-  network: "/manus-storage/tony-ken-network-v2_525cd75f.jpg",
-  interface: "/manus-storage/tony-ken-interface-v2_ba1fe302.jpg",
-  security: "/manus-storage/tony-ken-security-v2_39cf273f.jpg",
-};
+const siteBase = import.meta.env.BASE_URL;
+const heroImage = `${siteBase}images/tony-portrait.svg`;
 
 const navItems = [
   { label: "Services", href: "#profile", id: "profile" },
   { label: "Work", href: "#work", id: "work" },
-  { label: "Projects", href: "/projects", id: "projects" },
+  { label: "Projects", href: `${siteBase}projects`, id: "projects" },
   { label: "Approach", href: "#approach", id: "approach" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
@@ -62,43 +58,7 @@ const capabilities = [
     icon: ShieldCheck,
     title: "Trust built in",
     description: "Security-aware thinking, accessible structure, and clear communication for businesses that need their website to feel credible.",
-    tags: ["CCNA", "Cybersecurity", "Accessibility"],
-  },
-];
-
-const projects = [
-  {
-    index: "A / 01",
-    category: "Digital presence / clarity",
-    title: "Route / Path",
-    description: "A capability-led website direction that makes a technical offer easier to understand, trust, and act on.",
-    image: projectImages.network,
-    imageAlt: "Abstract network routing lines with a highlighted signal path",
-    accent: "lime",
-    services: ["Positioning", "Information design", "Responsive UI"],
-    result: "A clearer path from first visit to qualified conversation.",
-  },
-  {
-    index: "B / 02",
-    category: "Product website / conversion",
-    title: "Fold / Form",
-    description: "A sharper interface system for a digital product that needs a stronger point of view and a calmer path to action.",
-    image: projectImages.interface,
-    imageAlt: "Editorial abstract interface composition with black card and lime marker",
-    accent: "blue",
-    services: ["Visual direction", "UX systems", "Interaction design"],
-    result: "A flexible visual language that supports growth without losing character.",
-  },
-  {
-    index: "C / 03",
-    category: "Trust / security communication",
-    title: "Trust / Layer",
-    description: "A human-first communication layer for businesses that need to explain expertise, readiness, and responsibility clearly.",
-    image: projectImages.security,
-    imageAlt: "Abstract threat-model diagram on tactile paper with a lime marker",
-    accent: "coral",
-    services: ["Content structure", "Security UX", "Narrative systems"],
-    result: "Technical confidence made easier for prospective clients to understand.",
+    tags: ["Networking", "Security", "Accessibility"],
   },
 ];
 
@@ -194,7 +154,7 @@ export default function Home() {
       "",
       "Project brief:",
       brief,
-    ].join("\\n");
+    ].join("\n");
     window.location.href = `mailto:ktony7854@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
     toast.success("Your email app is ready with the project brief.");
@@ -207,7 +167,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f7f8f5] text-[#16212b]">
-      <header className={`absolute inset-x-0 top-0 z-40 text-[#f7f8f5] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${scrolled ? "bg-[#16212b]/95 shadow-[0_8px_24px_rgba(22,33,43,0.16)] backdrop-blur-md" : "bg-[#16212b]"}`}>
+      <header className={`fixed inset-x-0 top-0 z-40 text-[#f7f8f5] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${scrolled ? "bg-[#16212b]/95 shadow-[0_8px_24px_rgba(22,33,43,0.16)] backdrop-blur-md" : "bg-[#16212b]"}`}>
         <div className="container flex min-h-[76px] items-center justify-between border-b border-[#f7f8f5]/15">
           <a href="#top" aria-label="Ktony Sites home" className="group flex items-center gap-3">
             <span className="stamp-mark relative flex size-9 items-center justify-center border border-[#f7f8f5]/40 bg-[#c6d45a] p-1 transition-transform duration-200 group-hover:rotate-6">
@@ -231,19 +191,24 @@ export default function Home() {
               </a>
             ))}
             <button type="button" className="button-lime min-h-10 px-4" onClick={openContact}>
-              Let&apos;s talk <ArrowUpRight size={14} strokeWidth={1.8} />
+              Plan your website <ArrowUpRight size={14} strokeWidth={1.8} />
             </button>
           </nav>
 
-          <button
-            type="button"
-            className="flex size-10 items-center justify-center border border-[#f7f8f5]/25 md:hidden"
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((value) => !value)}
-          >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <button type="button" className="button-lime min-h-10 gap-1 px-2 text-[9px] sm:px-3" onClick={openContact}>
+              <span className="sm:hidden">Plan</span><span className="hidden sm:inline">Plan your website</span><ArrowUpRight size={14} strokeWidth={1.8} />
+            </button>
+            <button
+              type="button"
+              className="flex size-10 items-center justify-center border border-[#f7f8f5]/25"
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((value) => !value)}
+            >
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
@@ -261,7 +226,7 @@ export default function Home() {
                 </a>
               ))}
               <button type="button" className="button-lime mt-2 w-full" onClick={() => { setMenuOpen(false); openContact(); }}>
-                Let&apos;s talk <ArrowUpRight size={14} strokeWidth={1.8} />
+                Plan your website <ArrowUpRight size={14} strokeWidth={1.8} />
               </button>
             </nav>
           </div>
@@ -320,7 +285,7 @@ export default function Home() {
                 }}
                 onMouseLeave={() => setHeroTilt({ x: 0, y: 0 })}
               >
-                <img src={heroImage} alt="Abstract systems object made from glass, metal, and signal lines" className="h-full w-full object-cover" />
+              <img src={heroImage} alt="Illustrated TK brand composition for Tony Ken, web developer" className="h-full w-full object-cover" fetchPriority="high" />
                 <div className="absolute inset-3 bg-gradient-to-r from-[#16212b]/20 via-transparent to-transparent" />
                 <div className="absolute left-7 top-7 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-[#f7f8f5]/75">
                   <ScanLine size={13} className="text-[#c6d45a]" />
@@ -336,16 +301,16 @@ export default function Home() {
             </div>
           </div>
           <div className="container relative flex items-center justify-between border-t border-[#f7f8f5]/15 py-4 font-mono text-[9px] uppercase tracking-[0.16em] text-[#f7f8f5]/45">
-            <span>TK / 2026</span>
+            <span>TK / {new Date().getFullYear()}</span>
             <span className="hidden sm:block">Nairobi / East Africa / Beyond</span>
             <span>01—∞</span>
           </div>
         </section>
 
-        <section id="profile" className="reveal-section paper-noise relative scroll-mt-8 overflow-hidden bg-[#f7f8f5] py-24 sm:py-32">
+        <section id="profile" className="reveal-section paper-noise relative scroll-mt-24 overflow-hidden bg-[#f7f8f5] py-24 sm:py-32">
           <div className="system-rail pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 lg:flex"><span>TK—01</span><i /></div>
           <div className="pointer-events-none absolute right-[6%] top-[18%] hidden opacity-[0.11] lg:block">
-            <img src={markImage} alt="" className="size-44 grayscale" />
+            <span aria-hidden="true" className="flex size-40 items-center justify-center border border-[#16212b]/25 bg-[#c6d45a]/30 font-mono text-6xl font-medium tracking-[-0.12em] text-[#16212b]/55">TK</span>
             <span className="mt-2 block font-mono text-[9px] uppercase tracking-[0.16em] text-[#5f7480]">TK / system stamp</span>
           </div>
           <div className="container">
@@ -438,20 +403,21 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="work" className="reveal-section relative scroll-mt-8 bg-[#e7eceb] py-24 sm:py-32">
+        <section id="work" className="reveal-section relative scroll-mt-24 bg-[#e7eceb] py-24 sm:py-32">
           <div className="system-rail pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 lg:flex"><span>TK—03</span><i /></div>
           <div className="container">
             <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
               <div>
-                <p className="rule-label eyebrow text-[#5f7480]">02 / Selected builds</p>
-                <h2 className="section-title mt-5 max-w-2xl">Show the work. Make the next step obvious.</h2>
+                <p className="rule-label eyebrow text-[#5f7480]">02 / Previous work</p>
+                <h2 className="section-title mt-5 max-w-2xl">A website for every kind of next step.</h2>
               </div>
-              <p className="max-w-xs text-sm leading-6 text-[#16212b]/60 md:pb-2">Capability-led examples of the kind of digital presence, product experience, and trust layer I can build for your business.</p>
+              <p className="max-w-xs text-sm leading-6 text-[#16212b]/60 md:pb-2">Previous work across online retail, banking, business systems, and point of sale — shaped around useful customer experiences.</p>
             </div>
 
-            <div className="mt-16 grid gap-4 lg:grid-cols-12">
-              {projects.map((project, index) => (
-                <article key={project.index} className={`project-card group relative cursor-pointer border-b border-[#16212b]/20 pb-5 ${index === 0 ? "lg:col-span-7" : index === 1 ? "lg:col-span-5 lg:mt-20" : "lg:col-span-6 lg:ml-[8.333%]"}`} onClick={() => setSelectedProject(project)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setSelectedProject(project); }} role="button" tabIndex={0}>
+            <p className="mt-8 inline-flex border border-[#16212b]/20 bg-[#f7f8f5]/60 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-[#16212b]/65">Previous work / Self-directed projects</p>
+            <div className="mt-8 grid gap-4 lg:grid-cols-12">
+              {featuredProjects.map((project, index) => (
+                <article key={project.index} className={`project-card group relative cursor-pointer border-b border-[#16212b]/20 pb-5 lg:col-span-6 ${index % 2 === 1 ? "lg:mt-16" : ""}`} onClick={() => setSelectedProject(project)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setSelectedProject(project); } }} role="button" tabIndex={0}>
                   <div className="signal-corner relative aspect-[1.35/1] overflow-hidden bg-[#dbe3e4]">
                     <img src={project.image} alt={project.imageAlt} className="project-image h-full w-full object-cover" />
                     <div className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-200 group-hover:opacity-100">
@@ -480,10 +446,14 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            <div className="mt-12 flex flex-col gap-4 border-t border-[#16212b]/20 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#16212b]/55">More previous work in the project gallery</p>
+              <a href={`${siteBase}projects`} className="button-ink self-start">Explore all previous work <ArrowUpRight size={14} /></a>
+            </div>
           </div>
         </section>
 
-        <section id="credentials" className="reveal-section relative scroll-mt-8 bg-[#16212b] py-24 text-[#f7f8f5] sm:py-32">
+        <section id="credentials" className="reveal-section relative scroll-mt-24 bg-[#16212b] py-24 text-[#f7f8f5] sm:py-32">
           <div className="system-rail system-rail-light pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 lg:flex"><span>TK—04</span><i /></div>
           <div className="container">
             <div className="grid gap-14 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
@@ -494,12 +464,12 @@ export default function Home() {
               </div>
               <div className="divide-y divide-[#f7f8f5]/15 border-y border-[#f7f8f5]/15">
                 <div className="group grid gap-8 py-8 sm:grid-cols-[0.7fr_1.3fr] sm:items-center">
-                  <div className="flex items-center gap-4"><Network size={22} strokeWidth={1.4} className="text-[#c6d45a]" /><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#f7f8f5]/45">CCNA foundation / 01</span></div>
-                  <div className="flex items-start justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-[-0.04em]">Cisco Certified Network Associate</h3><p className="mt-2 text-sm text-[#f7f8f5]/50">CCNA foundation for network-aware digital work.</p></div><Check size={18} className="mt-1 shrink-0 text-[#c6d45a]" /></div>
+                  <div className="flex items-center gap-4"><Network size={22} strokeWidth={1.4} className="text-[#c6d45a]" /><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#f7f8f5]/45">Networking / 01</span></div>
+                  <div className="flex items-start justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-[-0.04em]">Network-aware development</h3><p className="mt-2 text-sm text-[#f7f8f5]/50">Networking knowledge informs how I think about reliable, connected products.</p></div><Check size={18} className="mt-1 shrink-0 text-[#c6d45a]" /></div>
                 </div>
                 <div className="group grid gap-8 py-8 sm:grid-cols-[0.7fr_1.3fr] sm:items-center">
-                  <div className="flex items-center gap-4"><Fingerprint size={22} strokeWidth={1.4} className="text-[#c6d45a]" /><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#f7f8f5]/45">Cybersecurity / 02</span></div>
-                  <div className="flex items-start justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-[-0.04em]">Cybersecurity certified</h3><p className="mt-2 text-sm text-[#f7f8f5]/50">Security-minded approach to systems, risk, and trust.</p></div><Check size={18} className="mt-1 shrink-0 text-[#c6d45a]" /></div>
+                  <div className="flex items-center gap-4"><Fingerprint size={22} strokeWidth={1.4} className="text-[#c6d45a]" /><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#f7f8f5]/45">Security / 02</span></div>
+                  <div className="flex items-start justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-[-0.04em]">Security-aware practice</h3><p className="mt-2 text-sm text-[#f7f8f5]/50">Security-minded attention to systems, risk, and trust.</p></div><Check size={18} className="mt-1 shrink-0 text-[#c6d45a]" /></div>
                 </div>
                 <div className="group grid gap-8 py-8 sm:grid-cols-[0.7fr_1.3fr] sm:items-center">
                   <div className="flex items-center gap-4"><Terminal size={22} strokeWidth={1.4} className="text-[#c6d45a]" /><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#f7f8f5]/45">Web practice / 03</span></div>
@@ -510,7 +480,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="approach" className="reveal-section paper-noise relative scroll-mt-8 bg-[#f7f8f5] py-24 sm:py-32">
+        <section id="approach" className="reveal-section paper-noise relative scroll-mt-24 bg-[#f7f8f5] py-24 sm:py-32">
           <div className="system-rail pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 lg:flex"><span>TK—05</span><i /></div>
           <div className="container">
             <div className="grid gap-14 lg:grid-cols-[0.35fr_0.65fr] lg:gap-20">
@@ -530,7 +500,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="reveal-section relative scroll-mt-8 overflow-hidden border-t border-[#16212b]/20 bg-[#f7f8f5] py-24 sm:py-32">
+        <section id="contact" className="reveal-section relative scroll-mt-24 overflow-hidden border-t border-[#16212b]/20 bg-[#f7f8f5] py-24 sm:py-32">
           <div className="system-rail pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 lg:flex"><span>TK—06</span><i /></div>
           <div className="pointer-events-none absolute -right-24 top-20 size-72 rounded-full border border-[#16212b]/10" />
           <div className="pointer-events-none absolute right-12 top-32 size-3 rounded-full bg-[#c6d45a] shadow-[0_0_0_8px_rgba(198,212,90,0.24)]" />
@@ -547,7 +517,7 @@ export default function Home() {
             </div>
             <div className="mt-24 flex flex-col justify-between gap-8 border-t border-[#16212b]/25 pt-5 font-mono text-[10px] uppercase tracking-[0.14em] sm:flex-row sm:items-center">
               <a href="mailto:ktony7854@gmail.com" className="flex items-center gap-3 transition-opacity hover:opacity-60"><Mail size={15} /> ktony7854@gmail.com</a>
-              <div className="flex items-center gap-5"><a href="https://github.com" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-60">GitHub</a><a href="https://linkedin.com" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-60">LinkedIn</a><span className="text-[#16212b]/55">© Ktony Sites / 2026</span></div>
+              <div className="flex items-center gap-5"><a href="https://github.com/ktonysites" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60">GitHub</a><span className="text-[#16212b]/55">© Ktony Sites / {new Date().getFullYear()}</span></div>
             </div>
           </div>
         </section>
@@ -583,7 +553,7 @@ export default function Home() {
                 <div className="mt-8 flex flex-wrap items-center justify-between gap-4"><span className="max-w-xs font-mono text-[9px] uppercase tracking-[0.1em] text-[#16212b]/45">Submitting opens your email app with the enquiry addressed to Ktony Sites.</span><button type="submit" className="button-ink">Send the brief <ArrowUpRight size={15} /></button></div>
               </form>
             ) : (
-              <div className="py-8"><div className="flex size-12 items-center justify-center bg-[#c6d45a]"><Check size={22} /></div><h2 id="contact-dialog-title" className="mt-7 text-4xl font-semibold tracking-[-0.06em]">Message received.</h2><p className="mt-4 max-w-md text-base leading-7 text-[#16212b]/65">Your email app should now have a ready-to-send enquiry for Ktony Sites at ktony7854@gmail.com. If it did not open, email the brief directly from your inbox.</p><button type="button" className="button-ghost mt-8" onClick={() => setContactOpen(false)}>Close panel <X size={14} /></button></div>
+              <div className="py-8"><div className="flex size-12 items-center justify-center bg-[#c6d45a]"><Mail size={22} /></div><h2 id="contact-dialog-title" className="mt-7 text-4xl font-semibold tracking-[-0.06em]">Your brief is ready.</h2><p className="mt-4 max-w-md text-base leading-7 text-[#16212b]/65">Your email app should have a draft addressed to Ktony Sites. Review it and press send there. If it did not open, email <a className="underline underline-offset-4" href="mailto:ktony7854@gmail.com">ktony7854@gmail.com</a>.</p><button type="button" className="button-ghost mt-8" onClick={() => setContactOpen(false)}>Close panel <X size={14} /></button></div>
             )}
           </div>
         </div>

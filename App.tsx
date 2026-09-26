@@ -1,7 +1,10 @@
 import { ArrowRight, Check, CircleHelp, Image, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 import Home from "./Home";
 import Projects from "./Projects";
+
+const siteBase = import.meta.env.BASE_URL;
 
 function SiteDemo({ onClose }: { onClose: () => void }) {
   const [step, setStep] = useState(0);
@@ -11,23 +14,24 @@ function SiteDemo({ onClose }: { onClose: () => void }) {
       icon: Image,
       label: "Project gallery",
       title: "See the work in context.",
-      text: "Open the project archive to browse finished work, screenshots, and short explanations of what each build solved.",
+      text: "Explore previous work and read a little about the thinking behind each project.",
       action: "Show me projects",
-      actionHref: "/projects",
+      actionHref: `${siteBase}projects`,
     },
     {
       icon: MessageCircle,
-      label: "Project conversations",
-      title: "Leave a thought on a project.",
-      text: "Each project has a comment area, so customers can ask questions or share what they noticed about the work.",
-      action: "Next feature",
+      label: "The approach",
+      title: "Clear thinking, carefully built.",
+      text: "See how research, interface design, accessibility, and dependable frontend development come together in each project.",
+      action: "Next step",
     },
     {
       icon: Check,
       label: "Start a conversation",
       title: "Make the next step easy.",
-      text: "When you are ready, use the contact form to send Ktony Sites a clear project brief directly from the site.",
+      text: "Share your goal and the challenge you want the website to solve. Your email app will open with a project brief ready to send.",
       action: "Explore the site",
+      actionHref: "#contact",
     },
   ];
   const currentStep = steps[step];
@@ -42,6 +46,7 @@ function SiteDemo({ onClose }: { onClose: () => void }) {
   function handleAction() {
     if (currentStep.actionHref) {
       window.location.href = currentStep.actionHref;
+      onClose();
       return;
     }
     if (step < steps.length - 1) {
@@ -72,38 +77,9 @@ function SiteDemo({ onClose }: { onClose: () => void }) {
   );
 }
 
-function LoadingScreen() {
-  return (
-    <div className="loading-screen" role="status" aria-live="polite">
-      <div className="loading-mark"><span /><span /><span /></div>
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#f7f8f5]/65">Preparing the experience</p>
-    </div>
-  );
-}
-
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [demoOpen, setDemoOpen] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 850);
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (loading || window.location.pathname === "/projects") return;
-    const hasSeenDemo = window.localStorage.getItem("ktony-sites-demo-seen");
-    if (!hasSeenDemo) setDemoOpen(true);
-  }, [loading]);
-
-  function closeDemo() {
-    window.localStorage.setItem("ktony-sites-demo-seen", "true");
-    setDemoOpen(false);
-  }
-
-  if (loading) return <LoadingScreen />;
-  if (window.location.pathname === "/projects") return <Projects />;
-  return <><Home /><button type="button" className="group fixed bottom-5 left-5 z-30 flex size-8 items-center justify-center border border-[#16212b]/15 bg-[#f7f8f5]/70 text-[#16212b]/35 opacity-45 shadow-sm backdrop-blur-sm transition-all hover:border-[#16212b]/40 hover:bg-[#f7f8f5] hover:text-[#16212b] hover:opacity-100 focus-visible:opacity-100" aria-label="Open site tour" title="Open site tour" onClick={() => setDemoOpen(true)}><CircleHelp size={15} strokeWidth={1.6} /></button>{demoOpen && <SiteDemo onClose={closeDemo} />}</>;
+  if (window.location.pathname.replace(/\/+$/, "") === `${siteBase.replace(/\/+$/, "")}/projects`) return <Projects />;
+  return <><Toaster position="top-right" richColors /><Home /></>;
 }
 
 export default App;

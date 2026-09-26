@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="title desc">
+  <title id="title">Tony Ken, web developer</title>
+  <desc id="desc">An illustrated composition in navy, lime, and warm paper tones for Tony Ken's web developer portfolio.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#334854"/><stop offset="1" stop-color="#111a20"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#c6d45a" stop-opacity=".42"/><stop offset="1" stop-color="#c6d45a" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0v34" fill="none" stroke="#f7f8f5" stroke-opacity=".09"/></pattern>
+  </defs>
+  <rect width="1000" height="700" fill="url(#field)"/>
+  <rect width="1000" height="700" fill="url(#grid)"/>
+  <circle cx="670" cy="330" r="340" fill="url(#glow)"/>
+  <path d="M115 98h770v504H115z" fill="none" stroke="#f7f8f5" stroke-opacity=".36"/>
+  <path d="M145 128h710v444H145z" fill="none" stroke="#c6d45a" stroke-opacity=".55"/>
+  <path d="M500 128v444M145 350h710" stroke="#f7f8f5" stroke-opacity=".17" stroke-dasharray="4 9"/>
+  <circle cx="500" cy="350" r="151" fill="#18252d" fill-opacity=".82" stroke="#c6d45a" stroke-width="2"/>
+  <circle cx="500" cy="350" r="131" fill="none" stroke="#f7f8f5" stroke-opacity=".22"/>
+  <path d="M425 282v136m0-68h58l72-68m-72 68 72 68" fill="none" stroke="#f7f8f5" stroke-width="13" stroke-linecap="square" stroke-linejoin="miter"/>
+  <circle cx="574" cy="282" r="7" fill="#c6d45a"/><circle cx="574" cy="418" r="7" fill="#c6d45a"/>
+  <text x="165" y="168" fill="#c6d45a" font-family="monospace" font-size="14" letter-spacing="4">TONY KEN / NAIROBI</text>
+  <text x="165" y="541" fill="#f7f8f5" font-family="Arial,sans-serif" font-size="45" font-weight="600" letter-spacing="-2">WEB DEVELOPER</text>
+  <text x="166" y="565" fill="#f7f8f5" fill-opacity=".55" font-family="monospace" font-size="11" letter-spacing="2">DESIGN / DEVELOP / DELIVER</text>
+  <path d="M145 128h28m-28 0v28m710-28h-28m28 0v28m-710 416h28m-28 0v-28m710 28h-28m28 0v-28" fill="none" stroke="#c6d45a" stroke-width="2"/>
+</svg>

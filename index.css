@@ -435,7 +435,8 @@ a:active {
     color: var(--foreground);
   }
 
-  .project-card .project-image {
+  .project-image {
+    filter: saturate(1.22) contrast(1.04);
     transition: transform 420ms var(--ease-out), filter 260ms var(--ease-out);
   }
 

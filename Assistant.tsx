@@ -8,12 +8,13 @@ type ChatMessage = {
   action?: { label: string; href: string };
 };
 
-const quickPrompts = ["What can you build?", "Show me recent projects", "How do we start?"];
+const quickPrompts = ["What can you build?", "Show me previous work", "How do we start?"];
+const siteBase = import.meta.env.BASE_URL;
 
 function getReply(input: string): ChatMessage {
   const query = input.toLowerCase();
   if (query.includes("project") || query.includes("work") || query.includes("portfolio")) {
-    return { id: Date.now() + Math.random(), role: "assistant", text: "I can show you the project archive, including screenshots, short descriptions, and customer comments.", action: { label: "Open projects", href: "/projects" } };
+    return { id: Date.now() + Math.random(), role: "assistant", text: "The portfolio brings together previous self-directed projects, with notes on their goals and design choices.", action: { label: "Open previous work", href: `${siteBase}projects` } };
   }
   if (query.includes("service") || query.includes("build") || query.includes("offer") || query.includes("website")) {
     return { id: Date.now() + Math.random(), role: "assistant", text: "Ktony Sites designs and builds responsive business websites, product interfaces, and clear digital systems. The work combines content structure, visual direction, frontend development, accessibility, and security-minded details." };
@@ -52,9 +53,9 @@ export default function Assistant() {
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       {open && (
-        <section className="assistant-panel w-[min(380px,calc(100vw-2rem))] overflow-hidden border border-[#16212b]/15 bg-[#f7f8f5] text-[#16212b] shadow-[0_18px_60px_rgba(22,33,43,0.22)]" aria-label="Ktony Sites AI assistant">
+        <section className="assistant-panel w-[min(380px,calc(100vw-2rem))] overflow-hidden border border-[#16212b]/15 bg-[#f7f8f5] text-[#16212b] shadow-[0_18px_60px_rgba(22,33,43,0.22)]" aria-label="Ktony Sites site guide">
           <div className="flex items-center justify-between bg-[#16212b] px-5 py-4 text-[#f7f8f5]">
-            <div className="flex items-center gap-3"><span className="flex size-9 items-center justify-center bg-[#c6d45a] text-[#16212b]"><Bot size={18} /></span><div><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#c6d45a]">Ktony Sites / assistant</p><p className="mt-1 text-sm font-medium">Here to help you find your way</p></div></div>
+            <div className="flex items-center gap-3"><span className="flex size-9 items-center justify-center bg-[#c6d45a] text-[#16212b]"><Bot size={18} /></span><div><p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#c6d45a]">Ktony Sites / site guide</p><p className="mt-1 text-sm font-medium">Here to help you find your way</p></div></div>
             <button type="button" className="flex size-8 items-center justify-center text-[#f7f8f5]/60 hover:text-[#f7f8f5]" aria-label="Close assistant" onClick={() => setOpen(false)}><X size={16} /></button>
           </div>
           <div className="assistant-messages max-h-72 space-y-3 overflow-y-auto p-4" aria-live="polite">
@@ -64,7 +65,7 @@ export default function Assistant() {
           <form className="flex gap-2 border-t border-[#16212b]/10 p-3" onSubmit={handleSubmit}><input value={input} onChange={(event) => setInput(event.target.value)} className="min-w-0 flex-1 bg-transparent px-2 py-2 text-sm outline-none placeholder:text-[#16212b]/40" placeholder="Ask about the site..." aria-label="Ask the assistant" /><button type="submit" className="flex size-9 shrink-0 items-center justify-center bg-[#c6d45a] text-[#16212b]" aria-label="Send message"><Send size={15} /></button></form>
         </section>
       )}
-      <button type="button" className="flex size-12 items-center justify-center border border-[#f7f8f5]/70 bg-[#16212b] text-[#c6d45a] shadow-[0_8px_28px_rgba(22,33,43,0.22)] transition-transform hover:-translate-y-1" aria-label={open ? "Close AI assistant" : "Open AI assistant"} title="Ask Ktony Sites" onClick={() => setOpen((current) => !current)}>{open ? <X size={19} /> : <MessageCircle size={19} />}</button>
+      <button type="button" className="flex size-12 items-center justify-center border border-[#f7f8f5]/70 bg-[#16212b] text-[#c6d45a] shadow-[0_8px_28px_rgba(22,33,43,0.22)] transition-transform hover:-translate-y-1" aria-label={open ? "Close site guide" : "Open site guide"} aria-expanded={open} title="Ask Ktony Sites" onClick={() => setOpen((current) => !current)}>{open ? <X size={19} /> : <MessageCircle size={19} />}</button>
     </div>
   );
 }
