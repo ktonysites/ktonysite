@@ -1,21 +1,1227 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#16212b" />
-    <meta name="description" content="Tony Ken is a Nairobi-based web developer and modern designer creating clear, dependable websites for businesses in Kenya and beyond." />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Tony Ken — Web developer & modern designer" />
-    <meta property="og:description" content="Clear, dependable websites for businesses in Kenya and beyond. Strategy, design, and frontend development by Tony Ken in Nairobi." />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <title>Tony Ken — Web developer & modern designer | Ktony Sites</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/main.tsx"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tony Ken — Full-Stack Developer</title>
+<meta name="description" content="Tony Ken — full-stack web and mobile developer in Nairobi building banking integrations, M-Pesa billing engines, PropTech SaaS and real-time delivery apps.">
+<meta property="og:title" content="Tony Ken — Full-Stack Developer">
+<meta property="og:description" content="I build software that runs real businesses — banks, SACCOs, landlords, ISPs and delivery fleets.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ktonysites.netlify.app/images/tony-portrait.jpg">
+<meta property="og:url" content="https://ktonysites.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://ktonysites.netlify.app/">
+<link rel="icon" href="images/tony-avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#0E1116;--bg:#F6F7F9;--muted:#4B5263;--muted2:#5A6172;--line:rgba(14,17,22,.1);
+  --accent:#4338CA;--lime:#D9F99D;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;--serif:'Instrument Serif',Georgia,serif;
+  --body:Inter,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+body.loading{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+input,textarea{font:inherit}
+img{max-width:100%;display:block}
+::selection{background:var(--lime);color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.mono{font-family:var(--mono)}
+.h2{margin:0;font-family:var(--display);font-size:clamp(40px,5.5vw,72px);font-weight:700;letter-spacing:-.045em;line-height:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:100;background:var(--ink);color:#F6F7F9;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,5vw,56px);transition:transform 1s cubic-bezier(.8,0,.2,1)}
+#loader.done{transform:translateY(-100%)}
+#loader .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
+.ld-top{position:relative;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#9AA3B2}
+.ld-top .dot{display:inline-block;width:8px;height:8px;border-radius:99px;background:#22C55E;margin-right:10px;animation:pulse 1.4s ease-out infinite}
+.ld-mid{position:relative;display:flex;align-items:center;gap:clamp(16px,3vw,36px)}
+.ld-badge{width:clamp(64px,9vw,104px);height:clamp(64px,9vw,104px);border-radius:999px;background:var(--lime);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,34px);animation:pop .7s .1s var(--ease) both}
+.ld-name{font-family:var(--display);font-weight:700;font-size:clamp(48px,11vw,160px);line-height:.9;letter-spacing:-.05em;display:flex;overflow:hidden}
+.ld-name span{display:inline-block;animation:rise .8s var(--ease) both}
+.ld-name .sp{width:.25em}
+.ld-roles{position:relative;margin-top:22px;height:1.5em;overflow:hidden;font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,36px);color:var(--lime)}
+.ld-roles span{position:absolute;left:0;top:0;opacity:0;transform:translateY(100%);transition:transform .45s var(--ease),opacity .45s}
+.ld-roles span.on{opacity:1;transform:none}
+.ld-roles span.off{opacity:0;transform:translateY(-100%)}
+.ld-bot{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.ld-count{font-family:var(--display);font-weight:700;font-size:clamp(56px,10vw,140px);line-height:.85;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.ld-bar{flex:1;max-width:520px;height:3px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.ld-bar i{display:block;height:100%;width:0;background:var(--lime)}
+
+/* ---------- Background ---------- */
+.bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.dots{background-image:radial-gradient(rgba(14,17,22,.16) 1.1px,transparent 1.4px);background-size:22px 22px;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 45%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 45%,transparent 100%)}
+.blueprint{background-image:linear-gradient(rgba(67,56,202,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(67,56,202,.10) 1px,transparent 1px),linear-gradient(rgba(67,56,202,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(67,56,202,.05) 1px,transparent 1px);background-size:64px 64px,64px 64px,16px 16px,16px 16px;-webkit-mask-image:radial-gradient(circle at center,#000 0%,#000 35%,transparent 70%);mask-image:radial-gradient(circle at center,#000 0%,#000 35%,transparent 70%)}
+.grain{position:absolute;inset:0;width:100%;height:100%;opacity:.07;mix-blend-mode:multiply}
+.orbit{transform-box:fill-box;transform-origin:center;animation:spin 48s linear infinite}
+.orbit.rev{animation-duration:72s;animation-direction:reverse}
+.drift{animation:drift 14s ease-in-out infinite}
+.drift.s2{animation-duration:18s;animation-delay:-6s}
+
+/* ---------- Nav ---------- */
+header.nav{position:sticky;top:0;z-index:20;padding:16px 16px 0}
+.nav-in{max-width:1180px;margin:0 auto;padding:8px 8px 8px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(14,17,22,.08);border-radius:999px;box-shadow:0 10px 30px -18px rgba(30,27,75,.35)}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px}
+.brand b{width:34px;height:34px;border-radius:999px;background:var(--ink);color:var(--lime);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:14px}
+.brand span{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center;gap:2px}
+.nav-links a{padding:10px 14px;font-size:15px;font-weight:500;color:#3B4252}
+.nav-links a:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-weight:600;font-size:16px;border:0;transition:transform .25s ease,box-shadow .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(67,56,202,.6)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-light{background:#fff;color:var(--ink);border:1px solid rgba(14,17,22,.12)}
+.btn-accent{background:var(--accent);color:#fff}
+.nav-links .btn{min-height:44px;padding:0 20px;margin-left:6px;font-size:15px;color:#fff}
+.arrow{transition:transform .35s var(--ease)}
+a:hover .arrow,button:hover .arrow,.card:hover .arrow,.row:hover .arrow{transform:translateX(6px)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding-top:96px;padding-bottom:64px}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border-radius:999px;background:#fff;border:1px solid rgba(14,17,22,.08);font-size:14px;font-weight:500;color:#3B4252}
+.live{width:9px;height:9px;border-radius:99px;background:#16A34A;animation:pulse 1.8s ease-out infinite}
+.hero-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:40px;margin-top:32px}
+.hero h1{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(44px,6.6vw,96px);line-height:.98;letter-spacing:-.045em;position:relative;z-index:0}
+.hero h1>span{display:block}
+.mark{position:relative;white-space:nowrap}
+.mark::before{content:"";position:absolute;left:-4px;right:-4px;bottom:.08em;height:.42em;background:var(--lime);border-radius:4px;z-index:-1;transform-origin:left;transform:scaleX(0)}
+body.ready .mark::before{animation:draw .8s .9s var(--ease) both}
+.hero-row{align-items:center}
+.portrait{flex:0 1 380px;position:relative;margin:0 auto}
+.portrait .ring{position:absolute;inset:-14px -14px 22px 22px;border:1.5px solid var(--ink);border-radius:999px 999px 40px 40px;opacity:.85;transform:rotate(3deg)}
+.portrait .arch{position:relative;border-radius:999px 999px 36px 36px;overflow:hidden;background:#ECEBFF;aspect-ratio:3/4;box-shadow:0 40px 80px -40px rgba(30,27,75,.55);clip-path:inset(100% 0 0 0 round 999px 999px 36px 36px)}
+.portrait .arch img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transform:scale(1.15)}
+body.ready .portrait .arch{animation:unveil 1.2s .35s cubic-bezier(.7,0,.2,1) both}
+body.ready .portrait .arch img{animation:settle 1.6s .35s var(--ease) both}
+.portrait .nametag{position:absolute;right:-18px;bottom:34px;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:999px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 16px 30px -16px rgba(30,27,75,.45);font-size:14px;font-weight:600;white-space:nowrap}
+.portrait .nametag small{display:block;font-weight:500;font-size:12px;color:var(--muted2)}
+.portrait .badge-spin{position:absolute;left:-72px;top:46%;width:150px;height:150px;border-radius:999px;background:#fff;box-shadow:0 20px 40px -20px rgba(30,27,75,.45)}
+.portrait .badge-spin svg{inset:6px;width:calc(100% - 12px);height:calc(100% - 12px)}
+.portrait .badge-spin a{width:64px;height:64px;margin:-32px 0 0 -32px}
+@media (max-width:960px){.portrait{flex-basis:100%;max-width:320px}.portrait .nametag{right:-6px}}
+.about-photo{flex:0 1 420px;margin:0;position:relative}
+.about-photo .pic{border-radius:32px;overflow:hidden;transform:rotate(-2.5deg);box-shadow:0 40px 80px -40px rgba(30,27,75,.5);transition:transform .6s var(--ease)}
+.about-photo:hover .pic{transform:rotate(0deg) scale(1.01)}
+.about-photo img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover}
+.about-photo .tape{position:absolute;top:-14px;left:50%;width:120px;height:30px;margin-left:-60px;background:rgba(217,249,157,.85);transform:rotate(-4deg);border-radius:4px}
+.about-photo .sticker{position:absolute;right:-22px;bottom:48px;width:118px;height:118px;border-radius:999px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.05;transform:rotate(10deg);box-shadow:0 20px 40px -20px rgba(67,56,202,.7)}
+.who{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.who .av{position:relative;width:64px;height:64px;flex:0 0 64px}
+.who .av img{width:64px;height:64px;border-radius:999px;object-fit:cover;border:2px solid var(--lime)}
+.who .av i{position:absolute;right:0;bottom:2px;width:14px;height:14px;border-radius:99px;background:#22C55E;border:2px solid var(--ink)}
+.who b{display:block;font-size:17px}
+.who span{display:block;font-size:14px;color:#B8BFCC}
+.badge-spin{flex:0 0 auto;position:relative;width:168px;height:168px}
+.badge-spin svg{position:absolute;inset:0;animation:spin 16s linear infinite}
+.badge-spin a{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:999px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+.hero-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:44px}
+.hero-foot p{margin:0;max-width:560px;font-size:19px;color:var(--muted)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.floaters{position:relative;height:88px;margin-top:40px}
+.floaters span{position:absolute;padding:10px 16px;border-radius:999px;font-family:var(--mono);font-size:13px;animation:float 6s ease-in-out infinite}
+.floaters span:nth-child(2n){animation-delay:-2s}.floaters span:nth-child(3n){animation-delay:-4s}
+
+/* reveal-on-load */
+.rise{opacity:0;transform:translateY(28px)}
+body.ready .rise{animation:rise .9s var(--ease) both}
+body.ready .d1{animation-delay:.08s}body.ready .d2{animation-delay:.18s}body.ready .d3{animation-delay:.3s}body.ready .d4{animation-delay:.44s}body.ready .d5{animation-delay:.6s}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Marquee ---------- */
+.marquee{background:var(--ink);color:#F6F7F9;padding:22px 0;overflow:hidden;transform:rotate(-1.2deg);margin:8px -20px 0}
+.marquee-track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{display:inline-flex;align-items:center;gap:28px;padding-right:28px;font-family:var(--display);font-size:34px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+
+/* ---------- Stats ---------- */
+.stats{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{border-radius:24px;padding:28px;background:#fff;border:1px solid rgba(14,17,22,.06)}
+.stat dt{font-size:14px;font-weight:500;color:var(--muted2)}
+.stat dd{margin:6px 0 0;font-family:var(--display);font-size:64px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.stat.small dd{margin-top:12px;font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+
+/* ---------- Cards ---------- */
+section.block{padding-top:128px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:48px}
+.sec-head p{margin:0;max-width:380px;color:var(--muted)}
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.card{border-radius:32px;overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(30,27,75,.35)}
+.card .shot{padding:28px;display:flex;align-items:center;justify-content:center}
+.card .shot img{width:100%;height:auto;border-radius:12px;box-shadow:0 24px 40px -24px rgba(30,27,75,.4);transition:transform .6s var(--ease)}
+.card:hover .shot img{transform:translateY(-6px) scale(1.02)}
+.card.lead .shot{padding:40px;flex:1}
+.card.lead .shot img{max-width:680px;border-radius:14px}
+.card .body{padding:28px;background:#fff;display:flex;flex-direction:column;gap:12px;flex:1}
+.card.lead .body{padding:36px 40px 40px;flex:0 0 auto}
+.tag{display:inline-block;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600}
+.num{font-family:var(--mono);font-size:12px;color:#6B7280}
+.card h3{margin:0;font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.card.lead h3{font-size:34px;line-height:1.08}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card.lead p{font-size:17px}
+.hard{padding:16px 18px;border-radius:16px;background:var(--bg);font-size:15px;color:#3B4252}
+.linkbtn{align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0;background:transparent;color:var(--accent);font-weight:600;font-size:15px}
+.b-lead{grid-column:span 7;grid-row:span 2}.b-side{grid-column:span 5}.b-half{grid-column:span 6}
+@media (max-width:960px){.b-lead,.b-side,.b-half{grid-column:span 12;grid-row:auto}.hide-sm{display:none!important}}
+
+/* ---------- Project list ---------- */
+.filters{margin:36px 0 24px;display:flex;flex-wrap:wrap;gap:8px}
+.filters button{min-height:44px;padding:0 20px;border-radius:999px;font-size:14px;font-weight:600;border:1px solid rgba(14,17,22,.12);background:#fff;color:#1F2937;transition:transform .25s ease,background .2s}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters button:hover{transform:translateY(-2px)}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rows li{border-bottom:1px solid var(--line)}
+.row{width:100%;text-align:left;border:0;background:transparent;color:var(--ink);padding:26px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;border-radius:16px;transition:background-color .3s ease}
+.row:hover{background:#fff}
+.row .t{flex:1 1 320px;min-width:0}
+.row .t b{display:block;font-family:var(--display);font-size:26px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
+.row .t span{display:block;margin-top:4px;font-size:15px;color:var(--muted)}
+.row .go{flex:0 0 48px;width:48px;height:48px;border-radius:999px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center}
+
+/* ---------- Skills ---------- */
+.skills-band{margin-top:128px;padding:112px 0;background-color:rgba(232,231,255,.55);background-image:repeating-linear-gradient(0deg,rgba(14,17,22,.045) 0 1px,transparent 1px 32px);border-top:1px solid rgba(67,56,202,.12);border-bottom:1px solid rgba(67,56,202,.12)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.skill{background:#fff;border-radius:24px;padding:28px;border:1px solid rgba(14,17,22,.06);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.skill:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(30,27,75,.35)}
+.skill-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.skill-h i{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-style:normal;font-weight:500}
+.skill-h h3{margin:0;font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:-.02em}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:14px;padding:7px 13px;border-radius:999px;background:#F3F4F6;color:#1F2937}
+
+/* ---------- About ---------- */
+.about{display:flex;flex-wrap:wrap;gap:64px}
+.about>div{flex:1 1 420px}
+.about p.lede{margin:0 0 18px;font-size:20px;line-height:1.55;color:#1F2937}
+.about p.sub{margin:0 0 32px;font-size:18px;color:var(--muted)}
+.principles{flex:1 1 440px;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.principles li{display:flex;gap:20px;padding:26px 28px;background:#fff;border-radius:24px;border:1px solid rgba(14,17,22,.06)}
+.principles em{flex:0 0 auto;font-family:var(--serif);font-size:40px;line-height:1;color:var(--accent)}
+.principles b{display:block;font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.02em}
+.principles span{display:block;margin-top:4px;color:var(--muted);font-size:15px}
+
+/* ---------- Contact ---------- */
+.contact{position:relative;isolation:isolate;overflow:hidden;max-width:1240px;margin:0 auto;background-color:var(--ink);background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:48px 48px;color:#F6F7F9;border-radius:40px;padding:clamp(32px,6vw,80px);display:flex;flex-wrap:wrap;gap:56px}
+.contact h2{margin:0 0 24px;font-family:var(--display);font-size:clamp(44px,6.5vw,88px);font-weight:700;letter-spacing:-.05em;line-height:.98}
+.contact .lead{margin:0 0 36px;font-size:18px;color:#B8BFCC;max-width:420px}
+.clist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.clist a{display:flex;align-items:center;gap:14px;min-height:48px;color:#F6F7F9;font-size:17px}
+.clist a:hover{text-decoration:underline;text-underline-offset:5px}
+form.cf{flex:1 1 420px;display:flex;flex-direction:column;gap:16px;background:#fff;color:var(--ink);border-radius:28px;padding:32px}
+.cf label{font-size:14px;font-weight:600}
+.cf .f{display:flex;flex-direction:column;gap:6px}
+.cf input,.cf textarea{min-height:52px;padding:0 16px;border-radius:14px;border:1px solid #D1D5DB;background:#F9FAFB;color:var(--ink);font-size:15px}
+.cf textarea{padding:14px 16px;resize:vertical}
+.cf .status{margin:0;font-size:14px;font-weight:500;color:#15803D}
+.cf .status a{color:var(--accent);text-decoration:underline}
+
+footer{max-width:1180px;margin:0 auto;padding:40px 24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--muted2)}
+footer a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--ink)}
+
+/* ---------- Case study ---------- */
+#case{display:none;position:relative;isolation:isolate;overflow:hidden}
+body.case #home{display:none}
+body.case #top>.bg{display:none}
+@media (max-width:560px){.nav-links a.opt{display:none}}
+body.case #case{display:block}
+.cs-back{margin-top:40px}
+.cs-head{padding:56px 0 48px}
+.cs-head h1{margin:24px 0 0;max-width:1000px;font-family:var(--display);font-weight:700;font-size:clamp(42px,6vw,84px);line-height:1;letter-spacing:-.045em}
+.cs-head .short{margin:28px 0 0;max-width:720px;font-size:21px;line-height:1.55;color:var(--muted)}
+.meta{margin:48px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.meta div{background:#fff;border-radius:20px;padding:22px 24px;border:1px solid rgba(14,17,22,.06)}
+.meta dt{font-size:13px;font-weight:600;color:var(--muted2)}
+.meta dd{margin:6px 0 0;font-weight:500}
+.meta a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.cs-fig{margin:0}
+.cs-fig .frame{border-radius:36px;padding:clamp(20px,4vw,56px);display:flex;justify-content:center;align-items:center}
+.cs-fig img{width:100%;max-width:1040px;height:auto;border-radius:18px;box-shadow:0 40px 80px -40px rgba(30,27,75,.45)}
+.cs-fig figcaption{margin-top:14px;font-size:14px;color:var(--muted2)}
+.ph{width:100%;max-width:900px;height:420px;background:#fff;border-radius:22px;border:2px dashed #D1D5DB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#374151}
+.cs-body{padding-top:96px;display:flex;flex-wrap:wrap;gap:64px}
+.cs-main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:56px}
+.cs-main h2{margin:0 0 14px;font-family:var(--display);font-size:34px;font-weight:700;letter-spacing:-.03em}
+.cs-main p{margin:0;font-size:18px;color:#374151}
+.cs-main .big{font-size:21px;line-height:1.55;color:#1F2937}
+.hardbox{padding:40px;background:var(--ink);color:#F6F7F9;border-radius:32px}
+.hardbox .k{margin:0 0 14px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime)}
+.hardbox p{margin:0;font-size:19px;line-height:1.6;color:#E5E7EB}
+.cs-side{flex:1 1 280px}
+.cs-side>div{position:sticky;top:110px;background:#fff;border-radius:28px;padding:28px;border:1px solid rgba(14,17,22,.06)}
+.cs-side h2{margin:0 0 18px;font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:-.02em}
+.cs-side ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cs-side li{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500}
+.pager{padding:112px 0 64px}
+.pager>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:20px;background:#fff;border-radius:999px;border:1px solid rgba(14,17,22,.06)}
+
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.45)}100%{box-shadow:0 0 0 12px rgba(22,163,74,0)}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
+@keyframes unveil{from{clip-path:inset(100% 0 0 0 round 999px 999px 36px 36px)}to{clip-path:inset(0 0 0 0 round 999px 999px 36px 36px)}}
+@keyframes settle{from{transform:scale(1.15)}to{transform:scale(1)}}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rise,.reveal{opacity:1;transform:none}
+  .mark::before{transform:none}
+  .portrait .arch{clip-path:none}.portrait .arch img{transform:none}
+}
+</style>
+</head>
+<body class="loading">
+
+<!-- Loading screen -->
+<div id="loader" role="status" aria-live="polite" aria-label="Loading Tony Ken's portfolio">
+  <div class="grid"></div>
+  <div class="ld-top"><span><span class="dot"></span>Nairobi, Kenya</span><span>Portfolio · 2026</span></div>
+  <div>
+    <div class="ld-mid">
+      <div class="ld-badge" aria-hidden="true">TK</div>
+      <div class="ld-name" aria-hidden="true" id="ld-name"></div>
+    </div>
+    <div class="ld-roles" aria-hidden="true">
+      <span>full-stack developer</span><span>fintech &amp; M-Pesa integrations</span><span>PropTech &amp; delivery platforms</span><span>web &amp; mobile</span>
+    </div>
+  </div>
+  <div class="ld-bot">
+    <div class="ld-count" id="ld-count">00</div>
+    <div class="ld-bar"><i id="ld-bar"></i></div>
+  </div>
+</div>
+
+<div id="top" style="position:relative;isolation:isolate">
+
+  <!-- Background -->
+  <div class="bg" aria-hidden="true">
+    <div class="dots" style="position:absolute;top:0;left:0;right:0;height:1200px"></div>
+    <svg viewBox="0 0 800 800" width="820" height="820" style="position:absolute;top:40px;right:-260px">
+      <circle cx="400" cy="400" r="380" fill="none" stroke="rgba(67,56,202,0.10)"/>
+      <circle cx="400" cy="400" r="300" fill="none" stroke="rgba(67,56,202,0.14)"/>
+      <circle cx="400" cy="400" r="220" fill="#ECEBFF"/>
+      <circle cx="400" cy="400" r="140" fill="none" stroke="rgba(67,56,202,0.18)"/>
+      <g class="orbit"><circle cx="400" cy="400" r="300" fill="none" stroke="rgba(67,56,202,0.35)" stroke-width="1.5" stroke-dasharray="2 10"/><circle cx="700" cy="400" r="9" fill="#4338CA"/><circle cx="100" cy="400" r="6" fill="#0E1116"/></g>
+      <g class="orbit rev"><circle cx="400" cy="400" r="380" fill="none" stroke="transparent"/><circle cx="400" cy="20" r="14" fill="#D9F99D" stroke="#0E1116" stroke-width="1.5"/><circle cx="400" cy="780" r="5" fill="#F97316"/></g>
+      <path d="M400 180 L400 620 M180 400 L620 400" stroke="rgba(67,56,202,0.12)"/>
+    </svg>
+    <div class="blueprint" style="position:absolute;top:380px;left:-220px;width:640px;height:640px"></div>
+    <svg viewBox="0 0 120 120" width="120" height="120" class="drift" style="position:absolute;top:600px;left:calc(50% - 760px)"><rect x="20" y="20" width="80" height="80" rx="18" fill="none" stroke="#0E1116" stroke-width="1.5" transform="rotate(12 60 60)"/><circle cx="60" cy="60" r="6" fill="#4338CA"/></svg>
+    <div class="drift" style="position:absolute;top:2100px;left:-320px;width:640px;height:640px;border-radius:50%;background:#ECEBFF;opacity:.7"></div>
+    <svg viewBox="0 0 400 400" width="420" height="420" style="position:absolute;top:2950px;right:-140px"><circle cx="200" cy="200" r="190" fill="none" stroke="rgba(14,17,22,0.08)"/><g class="orbit rev"><circle cx="200" cy="200" r="150" fill="none" stroke="rgba(249,115,22,0.35)" stroke-width="1.5" stroke-dasharray="1 9"/><circle cx="350" cy="200" r="8" fill="#F97316"/></g></svg>
+    <div class="drift s2" style="position:absolute;top:4300px;right:-260px;width:560px;height:560px;border-radius:50%;background:#FFE9DD;opacity:.75"></div>
+    <div class="blueprint" style="position:absolute;top:4700px;left:-200px;width:600px;height:600px"></div>
+    <div class="drift" style="position:absolute;top:5600px;left:8%;width:220px;height:220px;border-radius:50%;background:#D9F99D;opacity:.55"></div>
+    <svg class="grain"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+  </div>
+
+  <header class="nav">
+    <nav class="nav-in" aria-label="Main">
+      <a class="brand" href="#top" data-home><b>TK</b><span>Tony Ken</span></a>
+      <div class="nav-links">
+        <a href="#work" data-home>Work</a>
+        <a class="opt" href="#skills" data-home>Skills</a>
+        <a class="opt" href="#about" data-home>About</a>
+        <a class="btn btn-accent" href="#contact" data-home>Let's talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= HOME ================= -->
+  <main id="home">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-row" style="margin-top:0">
+        <div style="flex:999 1 560px;min-width:0">
+          <div class="pill rise d1"><span class="live"></span>Available for projects · Nairobi, Kenya</div>
+          <h1 id="hero-title" style="margin-top:32px">
+            <span class="rise d2">I build software</span>
+            <span class="rise d3">that runs <span class="mark">real</span> <span class="serif">businesses.</span></span>
+          </h1>
+          <p class="rise d4" style="margin:32px 0 0;max-width:560px;font-size:19px;color:var(--muted)">Banks, SACCOs, landlords, ISPs and delivery fleets. From core-banking integrations and M-Pesa billing engines to property SaaS and real-time delivery apps — every project starts with an operational problem.</p>
+          <div class="ctas rise d5" style="margin-top:36px">
+            <a class="btn btn-dark" href="#work" data-home>View my work <svg class="arrow" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-light" href="#contact" data-home>Contact me</a>
+          </div>
+        </div>
+        <div class="portrait rise d3">
+          <div class="ring" aria-hidden="true"></div>
+          <div class="arch"><img src="images/tony-portrait.jpg" alt="Tony Ken, full-stack developer, in a navy blazer" width="760" height="1017" fetchpriority="high"></div>
+          <div class="badge-spin hide-sm">
+            <svg aria-hidden="true" viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text style="font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:3.2px;fill:#0E1116"><textPath href="#circ">FULL-STACK DEVELOPER • OPEN TO WORK • </textPath></text></svg>
+            <a href="#work" data-home aria-label="Scroll to my work"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 8v9H8"/></svg></a>
+          </div>
+          <div class="nametag"><span class="live"></span><span>Tony Ken<small>Web &amp; mobile developer</small></span></div>
+        </div>
+      </div>
+      <div class="floaters hide-sm" aria-hidden="true">
+        <span style="left:2%;top:10px;background:#E8E7FF;color:#312E81">Temenos T24</span>
+        <span style="left:24%;top:34px;background:#E3F6E8;color:#14532D">M-Pesa Daraja</span>
+        <span style="left:48%;top:6px;background:#FFE9DD;color:#7C2D12">MikroTik RouterOS</span>
+        <span style="left:70%;top:38px;background:#E2F0FF;color:#0C4A6E">Supabase RLS</span>
+        <span style="left:88%;top:4px;background:#FFE3EC;color:#831843">Expo</span>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+    <section class="wrap" aria-label="At a glance" style="padding-top:96px">
+      <dl class="stats reveal">
+        <div class="stat"><dt>Projects shipped</dt><dd id="stat-count">13</dd></div>
+        <div class="stat"><dt>Industries</dt><dd>5</dd></div>
+        <div class="stat small" style="background:#E8E7FF;border:0"><dt style="color:#3730A3">Payment &amp; core rails</dt><dd style="color:#1E1B4B">M-Pesa · T24 · Visa</dd></div>
+        <div class="stat small" style="background:var(--lime);border:0"><dt style="color:#365314">Platforms</dt><dd style="color:#1A2E05">Web · Mobile · Routers</dd></div>
+      </dl>
+    </section>
+
+    <section class="block wrap" id="featured" aria-labelledby="feat-title">
+      <div class="sec-head reveal">
+        <h2 class="h2" id="feat-title">Selected <span class="serif">work</span></h2>
+        <p>Each case study covers the problem, the build, and the bug that nearly broke it.</p>
+      </div>
+      <div class="bento" id="bento"></div>
+    </section>
+
+    <section class="block wrap" id="work" aria-labelledby="work-title">
+      <div class="sec-head reveal" style="margin-bottom:0">
+        <h2 class="h2" id="work-title">All <span class="serif">projects</span></h2>
+        <p class="mono" aria-live="polite" id="showing" style="font-size:14px;color:var(--muted2)"></p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects by industry" id="filters"></div>
+      <ul class="rows" id="rows"></ul>
+    </section>
+
+    <section class="skills-band" id="skills" aria-labelledby="skills-title">
+      <div class="wrap">
+        <h2 class="h2 reveal" id="skills-title" style="margin-bottom:48px">My <span class="serif">toolkit</span></h2>
+        <div class="skills" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <section class="block wrap" id="about" aria-labelledby="about-title">
+      <div class="about" style="align-items:flex-start">
+        <figure class="about-photo reveal">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="pic"><img src="images/tony-casual.jpg" alt="Tony Ken smiling outdoors in a grey blazer" width="760" height="1017" loading="lazy"></div>
+          <span class="sticker" aria-hidden="true">based in<br>Nairobi</span>
+        </figure>
+        <div style="flex:1 1 480px">
+          <div class="reveal">
+            <h2 class="h2" id="about-title" style="margin-bottom:28px">Hi, I'm <span class="serif">Tony.</span></h2>
+            <p class="lede">I'm a full-stack developer who builds systems that move money, manage property and get orders to people's doors — from a central bank's internet banking portal to SACCO ledgers, WiFi billing engines and real-time delivery apps.</p>
+            <p class="sub">Full-stack web and mobile developer, building everything from core banking middleware and MikroTik ISP billing engines to real-time PropTech and delivery platforms.</p>
+            <a class="btn btn-light" href="https://github.com/ktonysites" target="_blank" rel="noopener" style="margin-bottom:40px">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg>
+              See my code on GitHub
+            </a>
+          </div>
+          <ol class="principles" id="principles"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title" style="padding:128px 16px 16px">
+      <div class="contact reveal">
+        <svg aria-hidden="true" viewBox="0 0 600 600" width="640" height="640" style="position:absolute;z-index:-1;right:-200px;bottom:-260px;pointer-events:none">
+          <circle cx="300" cy="300" r="280" fill="none" stroke="rgba(217,249,157,0.18)"/>
+          <circle cx="300" cy="300" r="200" fill="none" stroke="rgba(217,249,157,0.12)"/>
+          <g class="orbit"><circle cx="300" cy="300" r="240" fill="none" stroke="rgba(217,249,157,0.4)" stroke-width="1.5" stroke-dasharray="2 12"/><circle cx="540" cy="300" r="10" fill="#D9F99D"/></g>
+          <circle cx="300" cy="300" r="120" fill="rgba(67,56,202,0.35)"/>
+        </svg>
+        <div style="flex:1 1 400px">
+          <div class="who"><span class="av"><img src="images/tony-avatar.jpg" alt="" width="64" height="64" loading="lazy"><i></i></span><span><b>Tony Ken</b><span>Usually replies within a day</span></span></div>
+          <h2 id="contact-title">Let's build <span class="serif" style="color:var(--lime)">something.</span></h2>
+          <p class="lead">Tell me what's slowing your business down, and let's fix it.</p>
+          <ul class="clist">
+            <li><a href="mailto:ktony7854@gmail.com"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ktony7854@gmail.com</a></li>
+            <li><a href="https://wa.me/254725621699" target="_blank" rel="noopener"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12Z"/></svg>WhatsApp · 0725 621 699</a></li>
+            <li><a href="tel:+254725621699"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>Call · +254 725 621 699</a></li>
+            <li><a href="https://github.com/ktonysites" target="_blank" rel="noopener"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg>github.com/ktonysites</a></li>
+          </ul>
+        </div>
+        <form class="cf" id="cf" aria-label="Contact form" novalidate>
+          <div class="f"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="f"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email"></div>
+          <div class="f"><label for="cf-msg">What do you need built?</label><textarea id="cf-msg" name="msg" rows="5" required></textarea></div>
+          <button class="btn btn-accent" type="submit" style="min-height:56px">Send via WhatsApp</button>
+          <p class="status" id="cf-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= CASE STUDY ================= -->
+  <main id="case" aria-live="polite"></main>
+
+  <footer>
+    <span>© 2026 Tony Ken. Designed and built for slow networks and fast businesses.</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var CATS = [
+    { id: "all", label: "All" },
+    { id: "fintech", label: "Banking & FinTech", tint: "#E8E7FF", ink: "#3730A3" },
+    { id: "proptech", label: "PropTech", tint: "#FFE9DD", ink: "#9A3412" },
+    { id: "logistics", label: "Logistics & Delivery", tint: "#E3F6E8", ink: "#166534" },
+    { id: "health", label: "HealthTech & Community", tint: "#FFE3EC", ink: "#9D174D" },
+    { id: "commerce", label: "Automotive & E-Commerce", tint: "#E2F0FF", ink: "#075985" }
+  ];
+  var GITHUB = "https://github.com/ktonysites";
+
+  var PROJECTS = [
+    { id: "central-bank", cat: "fintech", featured: true, confidential: true,
+      title: "Central Bank Internet Banking Portal & T24 Integration",
+      role: "Full-Stack Integration Developer & Bug Resolution Lead (Frontend Portal & T24/Visa Middleware)",
+      short: "Internet banking portal and middleware layer wired directly into Temenos T24 core banking and Visa funds transfer.",
+      who: "Corporate and retail banking clients, plus the bank's internal operations teams.",
+      problem: "Corporate batch approvals were manual and branch-dependent, and account validation was fragmented across multi-currency ledgers.",
+      solution: "An internet banking portal plus a middleware integration layer talking directly to Temenos T24 core banking APIs and Visa funds-transfer endpoints, with multi-tier maker-checker approvals for corporate payments.",
+      challengeShort: "Cleared a 57-issue backlog before production sign-off — from maker-checker race conditions to token-replay hardening.",
+      challenge: "Clearing a 57-issue technical backlog before production sign-off: fixing race conditions in multi-tier maker-checker payment approval rules, hardening session security against token replay, resolving multi-currency rounding and validation mismatches between the portal UI and T24 balance inquiries, and patching certificate-chain validation bugs with eMudhra digital signatures.",
+      learned: "Enterprise banking software lives and dies by edge-case resilience. Resolving 57 production-blocking issues taught me how to trace bugs across legacy core banking SOAP/REST payloads (Temenos T24), enforce zero-trust maker-checker state machines, and handle cryptographic certificate chains (eMudhra) without breaking user session continuity.",
+      stack: ["Node.js / PHP middleware", "Temenos T24 APIs", "Visa APIs", "eMudhra certificates", "Frontend UI"],
+      img: "images/central-bank-portal.jpg", imgDesc: "Internet banking portal home — personal and corporate sign-in with maker-checker approvals" },
+    { id: "ushirikapro", cat: "fintech", featured: true,
+      title: "UshirikaPro — SACCO Management System",
+      role: "Solo Full-Stack Architect & Database Designer",
+      short: "Replaced spreadsheet reconciliation of SACCO contributions, loan guarantors and dividends with one live system.",
+      who: "Kenyan SACCO administrators, treasurers and cooperative members.",
+      problem: "Monthly contributions, loan guarantors and dividend payouts were reconciled across error-prone Excel spreadsheets.",
+      solution: "Digitised the full member lifecycle — onboarding, share-capital tracking, loan amortisation schedules and real-time statements — with M-Pesa payments.",
+      challengeShort: "One deposit must clear penalties, pay principal and top up share capital — atomically, under strict row-level security.",
+      challenge: "Guaranteeing transactional atomicity when a single deposit must simultaneously clear accrued loan penalties, pay down principal and allocate the remainder to non-withdrawable share capital — while enforcing Supabase Row-Level Security so members can check guarantor availability without exposing anyone else's balances.",
+      learned: "Designing financial ledgers means treating the database as the ultimate gatekeeper rather than relying on frontend math. Writing strict Supabase Row-Level Security policies and atomic PostgreSQL transactions taught me how to guarantee zero-drift balances across loans, guarantors and dividends.",
+      stack: ["Supabase (PostgreSQL)", "Row-Level Security", "Edge Functions", "M-Pesa Daraja", "Tailwind CSS", "HTML/JS"],
+      img: "images/ushirikapro.jpg", imgDesc: "UshirikaPro admin dashboard — front office, back office and debt recovery" },
+    { id: "isp-billing", cat: "fintech", featured: true,
+      title: "ISP Hotspot & MikroTik Billing Engine",
+      role: "Backend & Network Systems Developer",
+      short: "Automated captive-portal logins, bandwidth provisioning and M-Pesa STK Push payments for WiFi operators.",
+      who: "Local WISP operators and hotspot resellers.",
+      problem: "Operators generated vouchers by hand, and direct payment webhooks timed out when routers sat behind Carrier-Grade NAT.",
+      solution: "Fully automated captive-portal login, bandwidth package provisioning and M-Pesa STK Push payments — no human in the loop.",
+      challengeShort: "Delayed M-Pesa callbacks and flaky router links — solved with a polling worker and idempotent state machine.",
+      challenge: "Delayed M-Pesa callbacks and intermittent links between the cloud billing server and on-site MikroTik hardware. I replaced brittle direct push connections with a resilient polling worker and state-machine queue that reconciles paid transactions against MAC/IP bindings and provisions RouterOS queues idempotently — even if the router reboots mid-payment.",
+      learned: "Hardware in the real world is unreliable — routers reboot, CGNAT blocks incoming webhooks, and M-Pesa callbacks arrive late. Shifting from direct push commands to an idempotent polling worker architecture taught me how to design distributed systems that self-heal after network drops.",
+      stack: ["Node.js", "PostgreSQL", "MikroTik RouterOS API", "M-Pesa STK Push", "Polling workers"],
+      img: "images/timeless-wifi.jpg", imgDesc: "Timeless WiFi captive portal — package selection and M-Pesa STK Push checkout" },
+    { id: "mi-casa", cat: "proptech", featured: true,
+      title: "Mi Casa — Multi-Portal Property Platform",
+      role: "Lead Full-Stack Developer (System Architecture, RBAC & Multi-Portal UI)",
+      short: "One source of truth, three isolated portals: developers, property managers and tenants.",
+      who: "Real estate developers, day-to-day property managers and residential tenants.",
+      problem: "Each group worked on disconnected tools, leaving gaps in communication and accounting.",
+      solution: "A dedicated, isolated portal per persona, sharing a single source of truth for unit occupancy, service-charge collection, maintenance ticketing and construction unit handovers.",
+      challengeShort: "Fixed cross-portal permission leaks and state drift between the developer, manager and tenant views.",
+      challenge: "Cross-portal permission leakage and state desync: when a manager updated a lease status or split a utility bill mid-month, cached views in the developer's yield dashboard and the tenant's invoice ledger drifted out of sync. I refactored the backend state transitions and added strict role-scoped middleware filters.",
+      learned: "When developers, property managers and tenants all touch the same database entities, role-based access control cannot be an afterthought. I learned to architect clean data boundaries so a single lease or maintenance update cascades accurately across three dashboards without leaking privileged financial metrics.",
+      stack: ["React", "Node.js / Express", "PostgreSQL", "RBAC", "REST APIs"],
+      img: "images/micasa.jpg", imgDesc: "Mi Casa sign-in — one entry point for the tenant portal and management dashboard" },
+    { id: "rentpro", cat: "proptech", featured: false,
+      title: "RentPro — Landlord SaaS",
+      role: "Full-Stack Product Developer",
+      short: "Rent arrears, utility meter readings and expenses in one place — no more receipt books.",
+      who: "Independent landlords and small-to-medium agencies managing multiple residential courts.",
+      problem: "Paper receipt books and chaotic WhatsApp payment screenshots.",
+      solution: "Tracks rent arrears, water and electricity meter readings and repair expenses, with automated monthly rent-roll generation and net-income reporting.",
+      challengeShort: "Partial, overpaid and advance payments across rolling billing cycles broke the arrears job — until fixed.",
+      challenge: "Handling partial, overpaid and advance rent payments across rolling billing cycles — specifically a bug where a tenant paying two months ahead alongside a partial water bill caused the automated arrears cron job to misclassify the following month's balance.",
+      learned: "Real-world billing is rarely clean — tenants pay in partial instalments, overpay to cover next month's water bill, or pay late. RentPro taught me to model rolling ledger balances and idempotent cron jobs rather than simple paid/unpaid flags.",
+      stack: ["Full-stack JavaScript", "Tailwind CSS", "Relational DB", "Automated invoicing"],
+      img: "images/rentpro.jpg", imgDesc: "RentPro sign-in screen" },
+    { id: "kukia", cat: "logistics", featured: true,
+      title: "KUKIA — Food & Grocery Delivery",
+      role: "Lead Mobile & Web Developer (Expo/React Native Apps + Merchant Web Dashboard)",
+      short: "Customer and rider apps synced live with a merchant kitchen dashboard, from cart to doorstep.",
+      who: "Urban shoppers, supermarkets and restaurants, and dispatch riders.",
+      problem: "Merchants missed incoming orders, and riders arrived before items were bagged.",
+      solution: "An Expo mobile storefront linked directly to a merchant web dashboard with stock toggles and prep timers, covering checkout to doorstep handoff.",
+      challengeShort: "Kept multi-stage order status in sync on backgrounded apps over unstable mobile data.",
+      challenge: "Keeping cart inventory and multi-stage order status (Accepted → Packing → Ready for Pickup → In Transit) in sync between the web dashboard and backgrounded React Native apps on unstable mobile data. Missed push notifications and stale socket states left orders hanging until I built a state-reconciliation hook that runs when the app returns to the foreground.",
+      learned: "Cross-platform ecosystems fail in the gaps between devices. Building both the React Native customer/rider apps and the web merchant dashboard taught me to handle mobile backgrounding, offline socket recovery and optimistic UI updates so a kitchen never misses an order when a phone loses signal.",
+      stack: ["Expo", "React Native", "React (merchant web)", "Node.js"],
+      img: "images/kukia.jpg", imgDesc: "KUKIA customer app — nearby grocers and kitchens with loyalty points" },
+    { id: "localeats", cat: "logistics", featured: false,
+      title: "LocalEats — Live Rider Tracking",
+      role: "Full-Stack Developer (Real-Time WebSockets & Geolocation Engine)",
+      short: "Live map tracking that replaced 'where is my rider?' phone calls.",
+      who: "Local restaurants, customers and delivery bike riders.",
+      problem: "Nobody could see where an order was after it left the kitchen.",
+      solution: "Live map pin streaming and instant status toasts from kitchen to door.",
+      challengeShort: "Tamed GPS jitter and Socket.io reconnect storms in low-signal areas.",
+      challenge: "GPS jitter and WebSocket connection thrashing: in low-signal pockets or with a locked screen, the mobile wrapper dropped the Socket.io room and flooded the server with duplicate reconnects on recovery, freezing the customer's map. Fixed with room heartbeats, coordinate throttling and server-side last-known-location caching.",
+      learned: "Raw GPS streams and persistent WebSockets will quickly overwhelm both mobile batteries and Node.js servers if left unchecked. I learned to throttle telemetry broadcasts, manage Socket.io room lifecycles, and gracefully interpolate map pins when riders hit dead zones.",
+      stack: ["Node.js", "Express", "Socket.io", "Geolocation APIs", "Hybrid wrappers"],
+      img: null, imgDesc: "Live rider GPS pin with Socket.io status timeline" },
+    { id: "afya-tech", cat: "health", featured: false,
+      title: "Afya Tech — Remote Vitals Monitoring",
+      role: "Backend & Real-Time Systems Developer (FastAPI & WebSockets)",
+      short: "Streams patient vitals and fires instant alerts when readings cross clinical thresholds.",
+      who: "Community health workers, caregivers and families monitoring elderly patients remotely.",
+      problem: "Medical intervention came too late because nobody saw readings in time.",
+      solution: "Real-time streaming of heart rate, blood pressure and glucose logs, with emergency alerts when readings cross safe thresholds.",
+      challengeShort: "Resolved SQLite write locks colliding with concurrent WebSocket broadcasts in FastAPI.",
+      challenge: "Concurrent async WebSocket broadcasts collided with SQLite write locks in FastAPI — 'database is locked' errors and dropped frames whenever caregivers queried history during live updates. Fixed with async connection pooling, WAL mode and non-blocking background task queues.",
+      learned: "High-frequency telemetry demands non-blocking persistence. Hitting SQLite write-lock bottlenecks during live vitals streaming taught me the internals of database concurrency, Write-Ahead Logging, and separating real-time alert broadcasting from disk I/O in Python async loops.",
+      stack: ["Python", "FastAPI", "SQLite (WAL)", "WebSockets"],
+      img: "images/afya-tech.jpg", imgDesc: "Afya Tech caregiver portal — live vitals, quick actions and SOS" },
+    { id: "nourish-bloom", cat: "health", featured: false,
+      title: "Gillian Nutrition & Nourish & Bloom",
+      role: "Full-Stack Web Developer",
+      short: "A fast custom publishing and live community platform for a nutritionist — without WordPress bloat.",
+      who: "A professional nutritionist and her wellness community.",
+      problem: "Publishing meal guides and client stories on traditional WordPress meant bloat and hosting overhead.",
+      solution: "A custom publishing workflow for the founder and a real-time community space for readers.",
+      challengeShort: "Flattened the Firebase data tree to stop listener waterfalls and bandwidth spikes.",
+      challenge: "Firebase Realtime Database listener waterfalls: nested comment threads and tag filters triggered full-node downloads on every keystroke or reaction, spiking bandwidth and causing UI flicker. Fixed by flattening the JSON tree, indexing query paths and tightening security rules.",
+      learned: "Realtime NoSQL databases like Firebase are deceptively easy to start with but punish deeply nested JSON trees at scale. Flattening the schema and tightening listener scopes taught me how to keep live community feeds fast and bandwidth-lean.",
+      stack: ["JavaScript", "Firebase Realtime DB", "Firebase Auth", "HTML/CSS"],
+      img: "images/nourish-bloom.jpg", imgDesc: "Nourish & Bloom home page" },
+    { id: "cars-by-tyetye", cat: "commerce", featured: false,
+      title: "Cars By Tyetye & Revvo Cars",
+      role: "Frontend & Full-Stack Web Developer",
+      short: "Dealership inventory with multi-spec filters and instant WhatsApp lead routing.",
+      who: "Local car dealerships and auto brokers.",
+      problem: "Disorganised Instagram pages and static PDF price lists, where sold cars stayed listed for weeks.",
+      solution: "High-resolution inventory with trim comparison (engine CC, transmission, year, drive type, price) that turns browsers into WhatsApp and showroom leads.",
+      challengeShort: "Kept filters fast on mobile despite dozens of uncompressed 4K photos per listing.",
+      challenge: "Dealers uploaded dozens of uncompressed 4K photos per listing; combined with multi-select filters, that caused layout shift and severe mobile lag. Fixed with lazy-loaded image pipelines, URL-synced filter state and debounced search.",
+      learned: "High-ticket visual platforms live or die by perceived speed. Massive, unoptimised dealership photo uploads taught me to build aggressive lazy-loading pipelines, debounce multi-attribute filter queries, and sync search state to URL parameters for shareable vehicle links.",
+      stack: ["Full-stack web", "Tailwind CSS", "Search/filter engine", "WhatsApp routing"],
+      img: "images/cars-by-tyetye.jpg", imgDesc: "AutoMarket featured vehicles — real dealer inventory with prices and locations" },
+    { id: "kenbo-bikes", cat: "commerce", featured: false,
+      title: "Kenbo Bikes",
+      role: "Frontend Developer & Conversion UI Designer",
+      short: "Mobile-first motorcycle spec comparison built for entry-level Android on 3G.",
+      who: "Commercial motorcycle distributors, fleet buyers and boda-boda riders.",
+      problem: "Mobile social media ads had a high drop-off rate before riders ever reached the yard.",
+      solution: "An ultra-fast, mobile-first comparison of durability, fuel economy, engine specs and financing, with a direct inquiry flow.",
+      challengeShort: "Rebuilt spec cards and stripped render-blocking scripts for slow 3G phones.",
+      challenge: "Entry-level Android devices on slow 3G: heavy hero graphics and spec tables broke horizontal viewports. Fixed by stripping render-blocking scripts and rebuilding spec cards with fluid CSS grid layouts.",
+      learned: "Designing for commercial riders and fleet buyers means designing for entry-level Android screens on spotty 3G. Stripping heavy runtime dependencies in favour of lightweight, high-contrast Tailwind grids taught me that performance is the ultimate conversion feature.",
+      stack: ["Responsive frontend", "Tailwind CSS", "Lead capture"],
+      img: "images/kenbo-bikes.jpg", imgDesc: "Kenbo Bikes home page — Off-Road Series hero with test-ride booking" },
+    { id: "sora-studios", cat: "commerce", featured: false,
+      title: "Sora Studios",
+      role: "Full-Stack Web Developer",
+      short: "An editorial, distraction-free storefront with a cart you can trust.",
+      who: "A design-forward retail brand and its online shoppers.",
+      problem: "Cluttered template storefronts didn't fit the brand's editorial style.",
+      solution: "Lookbook browsing, size and colour variant selection and smooth checkout transitions.",
+      challengeShort: "Stopped out-of-stock variants slipping into checkout across tabs and quick-views.",
+      challenge: "Race conditions between localStorage cart state and live stock across quick-views and multiple tabs let out-of-stock variants sit in the checkout drawer. Fixed with strict state-hydration checks and SKU validation right before payment.",
+      learned: "Minimalist UI requires maximum discipline under the hood. Keeping the interface effortless meant writing strict cart-state hydration and SKU inventory validation to prevent multi-tab race conditions before checkout.",
+      stack: ["JavaScript", "Tailwind CSS", "Persistent cart state", "Checkout flow"],
+      img: "images/sora-studios.jpg", imgDesc: "Sora Studios home page — 'Quiet Luxury, Modern Living' editorial hero" },
+    { id: "phonestore-ke", cat: "commerce", featured: false,
+      title: "PhoneStoreKE — Smartphone & Gadgets E-Commerce",
+      role: "Lead Full-Stack Developer & UI/UX Designer",
+      short: "A dark storefront built for Kenyan buyers — instant brand filters, KES pricing, RAM/storage variants and M-Pesa checkout.",
+      who: "Kenyan smartphone shoppers and local electronics retailers.",
+      problem: "Shoppers were stuck with clunky classified sites or generic dollar-priced templates that ignore how Kenyans actually buy phones.",
+      solution: "A storefront tailored to the local market: instant filtering across Tecno, Infinix, Samsung, Xiaomi and iPhone, real-time KES pricing, RAM/storage variant toggles, a slide-out cart drawer and a localized M-Pesa STK Push checkout flow.",
+      challengeShort: "Ended cart corruption and filter race conditions on mobile with a central reducer and composite SKU keys.",
+      challenge: "Cart state corruption and multi-filter race conditions on mobile browsers. When users rapidly toggled brand and price filters while changing RAM/storage variants in the cart drawer, localStorage hydration lagged behind DOM re-renders — creating duplicate line items with mismatched KES subtotals, or wiping the cart count on refresh. I refactored the cart into a single centralized state reducer with composite SKU keys (model + storage + colour), debounced filter rendering, and strict storage reconciliation before triggering the M-Pesa prompt.",
+      learned: null,
+      stack: ["JavaScript (ES6+)", "HTML5", "Tailwind CSS", "localStorage state engine", "M-Pesa checkout flow"],
+      img: "images/phonestore-ke.jpg", imgDesc: "PhoneStoreKE shop — brand filters, compare and add-to-cart" }
+  ];
+
+  var SKILLS = [
+    { n: "01", title: "Frontend", tint: "#E8E7FF", ink: "#3730A3", items: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "React Native", "Expo"] },
+    { n: "02", title: "Backend", tint: "#FFE9DD", ink: "#9A3412", items: ["Node.js", "Express", "PHP", "Python", "FastAPI", "REST APIs", "WebSockets", "Socket.io"] },
+    { n: "03", title: "Data", tint: "#E3F6E8", ink: "#166534", items: ["PostgreSQL", "Supabase", "Row-Level Security", "Firebase", "SQLite"] },
+    { n: "04", title: "Payments & integrations", tint: "#FFE3EC", ink: "#9D174D", items: ["M-Pesa Daraja", "STK Push", "Temenos T24", "Visa APIs", "eMudhra", "MikroTik RouterOS", "WhatsApp routing", "Geolocation"] },
+    { n: "05", title: "Engineering", tint: "#E2F0FF", ink: "#075985", items: ["RBAC", "Maker-checker flows", "Idempotent state machines", "Polling workers", "Real-time sync", "Low-bandwidth performance"] }
+  ];
+  var PRINCIPLES = [
+    { n: "01", title: "Money has to reconcile", body: "Ledgers, deposits and arrears are atomic and auditable — from SACCO share capital to rent rolls." },
+    { n: "02", title: "Build for the network you actually have", body: "CGNAT routers, 3G phones and dropped sockets are the normal case, not the edge case." },
+    { n: "03", title: "Every role sees only what it should", body: "Row-level security, RBAC and maker-checker approvals are designed in from day one." },
+    { n: "04", title: "Fix the root cause", body: "State machines, reconciliation hooks and idempotent jobs instead of retry-and-hope." }
+  ];
+  var MARQUEE = ["Banking & FinTech", "SACCO systems", "M-Pesa payments", "PropTech", "Delivery & logistics", "HealthTech", "Automotive", "E-Commerce"];
+
+  var catMap = {}; CATS.forEach(function (c) { catMap[c.id] = c; });
+  PROJECTS.forEach(function (p, i) { var n = i + 1; p.num = (n < 10 ? "0" : "") + n; p.c = catMap[p.cat]; });
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
+  var ARROW = '<svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var STAR = '<svg width="22" height="22" viewBox="0 0 24 24" fill="#D9F99D" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>';
+  function tag(p) { return '<span class="tag" style="background:' + p.c.tint + ';color:' + p.c.ink + '">' + esc(p.c.label) + '</span>'; }
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- Home rendering ---------- */
+  $("marquee").innerHTML = MARQUEE.concat(MARQUEE).map(function (m) { return "<span>" + esc(m) + STAR + "</span>"; }).join("");
+  $("stat-count").textContent = PROJECTS.length;
+
+  var featured = PROJECTS.filter(function (p) { return p.featured; });
+  var spans = ["b-lead", "b-side", "b-side", "b-half", "b-half"];
+  $("bento").innerHTML = featured.map(function (p, i) {
+    var lead = i === 0;
+    return '<article class="card reveal ' + (lead ? "lead " : "") + spans[i] + '" style="background:' + p.c.tint + '">' +
+      '<div class="shot"><img src="' + p.img + '" alt="' + esc(p.imgDesc) + '" loading="lazy"></div>' +
+      '<div class="body">' +
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + tag(p) + '<span class="num">' + p.num + '</span></div>' +
+        '<h3>' + esc(p.title) + '</h3><p>' + esc(p.short) + '</p>' +
+        (lead ? '<p class="hard"><strong style="color:var(--ink)">Hardest challenge — </strong>' + esc(p.challengeShort) + '</p>' : '') +
+        '<a class="linkbtn" href="#' + p.id + '">Read case study ' + ARROW + '</a>' +
+      '</div></article>';
+  }).join("");
+
+  var filter = "all";
+  function renderList() {
+    $("filters").innerHTML = CATS.map(function (c) {
+      return '<button type="button" data-f="' + c.id + '" aria-pressed="' + (c.id === filter) + '">' + esc(c.label) + '</button>';
+    }).join("");
+    var vis = PROJECTS.filter(function (p) { return filter === "all" || p.cat === filter; });
+    $("showing").textContent = "Showing " + vis.length + " of " + PROJECTS.length;
+    $("rows").innerHTML = vis.map(function (p) {
+      return '<li><a class="row" href="#' + p.id + '">' +
+        '<span class="num" style="flex:0 0 40px;font-size:13px">' + p.num + '</span>' +
+        '<span class="t"><b>' + esc(p.title) + '</b><span>' + esc(p.short) + '</span></span>' +
+        '<span class="tag" style="font-size:13px;padding:6px 12px;background:' + p.c.tint + ';color:' + p.c.ink + '">' + esc(p.c.label) + '</span>' +
+        '<span class="go">' + ARROW.replace('16', '18').replace('16', '18') + '</span></a></li>';
+    }).join("");
+  }
+  $("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-f]"); if (!b) return;
+    filter = b.getAttribute("data-f"); renderList();
+  });
+  renderList();
+
+  $("skills-grid").innerHTML = SKILLS.map(function (g) {
+    return '<div class="skill reveal"><div class="skill-h"><i style="background:' + g.tint + ';color:' + g.ink + '">' + g.n + '</i><h3>' + esc(g.title) + '</h3></div>' +
+      '<div class="chips">' + g.items.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + '</div></div>';
+  }).join("");
+  $("principles").innerHTML = PRINCIPLES.map(function (p) {
+    return '<li class="reveal"><em>' + p.n + '</em><span><b>' + esc(p.title) + '</b><span>' + esc(p.body) + '</span></span></li>';
+  }).join("");
+
+  /* ---------- Case study ---------- */
+  var LOCK = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+  var CODE = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg>';
+  function renderCase(p) {
+    var i = PROJECTS.indexOf(p), n = PROJECTS.length;
+    var prev = PROJECTS[(i - 1 + n) % n], next = PROJECTS[(i + 1) % n];
+    var code = p.confidential
+      ? '<span style="display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#374151">' + LOCK + 'Confidential client work — code not public</span>'
+      : '<a href="' + GITHUB + '" target="_blank" rel="noopener">' + CODE + 'github.com/ktonysites</a>';
+    var fig = p.img
+      ? '<img src="' + p.img + '" alt="' + esc(p.imgDesc) + '">'
+      : '<div class="ph"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span class="mono" style="font-size:14px">Screenshot coming soon</span></div>';
+    var learned = p.learned
+      ? '<section class="reveal"><h2>What I <span class="serif">learned</span></h2><p>' + esc(p.learned) + '</p></section>' : '';
+    $("case").innerHTML =
+      '<div class="bg" aria-hidden="true"><div class="dots" style="position:absolute;top:0;left:0;right:0;height:900px"></div>' +
+        '<svg viewBox="0 0 800 800" width="760" height="760" style="position:absolute;top:-120px;right:-240px"><circle cx="400" cy="400" r="370" fill="none" stroke="rgba(14,17,22,0.08)"/><circle cx="400" cy="400" r="290" fill="none" stroke="rgba(14,17,22,0.10)" stroke-dasharray="2 10"/><circle cx="400" cy="400" r="210" fill="' + p.c.tint + '"/><g class="orbit"><circle cx="400" cy="400" r="290" fill="none" stroke="transparent"/><circle cx="690" cy="400" r="9" fill="' + p.c.ink + '"/></g></svg>' +
+        '<div class="drift" style="position:absolute;top:1500px;left:-260px;width:560px;height:560px;border-radius:50%;background:' + p.c.tint + ';opacity:.7"></div></div>' +
+      '<div class="wrap">' +
+        '<div class="cs-back"><a class="btn btn-light" href="#work" data-home style="min-height:48px;padding:0 20px 0 14px;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>All projects</a></div>' +
+        '<header class="cs-head rise d1">' +
+          '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">' + '<span class="tag" style="font-size:14px;padding:7px 14px;background:' + p.c.tint + ';color:' + p.c.ink + '">' + esc(p.c.label) + '</span>' +'<span class="mono" style="font-size:14px;color:var(--muted2)">Case study ' + p.num + '</span></div>' +
+          '<h1>' + esc(p.title) + '</h1><p class="short">' + esc(p.short) + '</p>' +
+          '<dl class="meta"><div><dt>My role</dt><dd>' + esc(p.role) + '</dd></div><div><dt>Built for</dt><dd>' + esc(p.who) + '</dd></div><div><dt>Code</dt><dd>' + code + '</dd></div></dl>' +
+        '</header>' +
+        '<figure class="cs-fig rise d2"><div class="frame" style="background:' + p.c.tint + '">' + fig + '</div><figcaption>' + esc(p.imgDesc) + '</figcaption></figure>' +
+        '<div class="cs-body"><div class="cs-main">' +
+          '<section class="reveal"><h2>The <span class="serif">problem</span></h2><p class="big">' + esc(p.problem) + '</p></section>' +
+          '<section class="reveal"><h2>The <span class="serif">solution</span></h2><p>' + esc(p.solution) + '</p></section>' +
+          '<section class="hardbox reveal"><p class="k">The hardest challenge</p><p>' + esc(p.challenge) + '</p></section>' +
+          learned +
+        '</div><aside class="cs-side" aria-label="Tech stack"><div><h2>Tech stack</h2><ul>' +
+          p.stack.map(function (t) { return '<li style="background:' + p.c.tint + ';color:' + p.c.ink + '">' + esc(t) + '</li>'; }).join("") +
+        '</ul></div></aside></div>' +
+        '<nav class="pager" aria-label="More case studies"><div>' +
+          '<a class="btn btn-light" href="#' + prev.id + '">← Previous</a>' +
+          '<span class="mono" style="font-size:14px;color:var(--muted2)">' + (i + 1) + ' / ' + n + '</span>' +
+          '<a class="btn btn-accent" href="#' + next.id + '">Next project →</a>' +
+        '</div></nav>' +
+      '</div>';
+    document.title = p.title + " — Tony Ken";
+    observe();
+  }
+
+  /* ---------- Routing (#project-id) ---------- */
+  var HOME_SECTIONS = { top: 1, work: 1, skills: 1, about: 1, contact: 1, featured: 1 };
+  function route() {
+    var h = (location.hash || "").slice(1);
+    var p = PROJECTS.filter(function (x) { return x.id === h; })[0];
+    if (p) {
+      document.body.classList.add("case");
+      renderCase(p);
+      window.scrollTo(0, 0);
+    } else {
+      var wasCase = document.body.classList.contains("case");
+      document.body.classList.remove("case");
+      document.title = "Tony Ken — Full-Stack Developer";
+      if (wasCase && h && HOME_SECTIONS[h]) { var el = $(h); if (el) setTimeout(function () { el.scrollIntoView(); }, 0); }
+      else if (wasCase) window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener("hashchange", route);
+
+  /* ---------- Scroll reveal ---------- */
+  var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -8% 0px" }) : null;
+  function observe() {
+    document.querySelectorAll(".reveal:not(.in)").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
+  }
+
+  /* ---------- Contact form → WhatsApp ---------- */
+  $("cf").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("cf-name").value.trim(), email = $("cf-email").value.trim(), msg = $("cf-msg").value.trim();
+    var st = $("cf-status");
+    if (!name || !msg) { st.style.color = "#B91C1C"; st.textContent = "Please add your name and what you need built."; return; }
+    var text = "Hi Tony, I'm " + name + (email ? " (" + email + ")" : "") + ".\n\n" + msg;
+    var url = "https://wa.me/254725621699?text=" + encodeURIComponent(text);
+    st.style.color = "#15803D";
+    st.innerHTML = 'Your message is ready — <a href="' + url + '" target="_blank" rel="noopener">open WhatsApp to send it</a>, or email <a href="mailto:ktony7854@gmail.com?subject=' + encodeURIComponent("Project enquiry from " + name) + '&body=' + encodeURIComponent(msg) + '">ktony7854@gmail.com</a>.';
+  });
+
+  /* ---------- Loader ---------- */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var nameEl = $("ld-name");
+  nameEl.innerHTML = "TONY KEN".split("").map(function (ch, i) {
+    return ch === " " ? '<span class="sp"></span>' : '<span style="animation-delay:' + (0.15 + i * 0.05) + 's">' + ch + "</span>";
+  }).join("");
+  var roles = document.querySelectorAll(".ld-roles span"), ri = 0;
+  roles[0].classList.add("on");
+  var roleTimer = setInterval(function () {
+    roles[ri].classList.remove("on"); roles[ri].classList.add("off");
+    var old = roles[ri]; setTimeout(function () { old.classList.remove("off"); }, 450);
+    ri = (ri + 1) % roles.length; roles[ri].classList.add("on");
+  }, 520);
+
+  var count = $("ld-count"), bar = $("ld-bar");
+  var DURATION = reduce ? 300 : 2100, start = null, pageLoaded = document.readyState === "complete";
+  window.addEventListener("load", function () { pageLoaded = true; });
+  function frame(fn) {
+    var called = false, id = 0;
+    try { id = requestAnimationFrame(function () { if (!called) { called = true; fn(performance.now()); } }); } catch (e) {}
+    setTimeout(function () { if (!called) { called = true; try { cancelAnimationFrame(id); } catch (e) {} fn(performance.now()); } }, 60);
+  }
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function tick(ts) {
+    if (!start) start = ts;
+    var t = Math.min((ts - start) / DURATION, 1);
+    var v = Math.round(ease(t) * (pageLoaded ? 100 : 92));
+    count.textContent = (v < 10 ? "0" : "") + v;
+    bar.style.width = v + "%";
+    if (t < 1 || !pageLoaded) { if (t >= 1 && !pageLoaded) { start = ts - DURATION; } frame(tick); }
+    else finish();
+  }
+  var finished = false;
+  function finish() {
+    if (finished) return; finished = true;
+    count.textContent = "100"; bar.style.width = "100%";
+    clearInterval(roleTimer);
+    setTimeout(function () {
+      $("loader").classList.add("done");
+      document.body.classList.remove("loading");
+      document.body.classList.add("ready");
+      observe();
+      try { document.dispatchEvent(new Event('tk:ready')); } catch (e) {}
+      setTimeout(function () { var l = $("loader"); if (l) l.parentNode.removeChild(l); }, 1100);
+    }, reduce ? 0 : 250);
+  }
+  setTimeout(function () { pageLoaded = true; }, 6000); // never hang on slow networks
+  window.__TK = { PROJECTS: PROJECTS, CATS: CATS, SKILLS: SKILLS };
+  route();
+  frame(tick);
+  setTimeout(finish, 7000); // hard stop: never trap visitors behind the loader
+})();
+</script>
+<style>
+/* ---------- Tony guide ---------- */
+.tg-launch{position:fixed;right:22px;bottom:22px;z-index:60;width:68px;height:68px;border-radius:999px;border:0;padding:0;background:var(--ink);box-shadow:0 18px 40px -14px rgba(30,27,75,.6);transition:transform .3s var(--ease)}
+.tg-launch:hover{transform:translateY(-3px) scale(1.04)}
+.tg-launch img{width:68px;height:68px;border-radius:999px;object-fit:cover;border:3px solid var(--lime)}
+.tg-launch i{position:absolute;right:3px;bottom:3px;width:16px;height:16px;border-radius:99px;background:#22C55E;border:3px solid #fff;animation:pulse 1.8s ease-out infinite}
+.tg-launch .ring{position:absolute;inset:-6px;border-radius:999px;border:2px dashed rgba(67,56,202,.45);animation:spin 14s linear infinite}
+.tg-launch[aria-expanded="true"]{transform:scale(.9)}
+.tg-teaser{position:fixed;right:22px;bottom:104px;z-index:60;max-width:300px;background:#fff;border-radius:22px 22px 6px 22px;padding:16px 40px 16px 18px;box-shadow:0 24px 50px -20px rgba(30,27,75,.45);border:1px solid rgba(14,17,22,.06);font-size:15px;line-height:1.45;opacity:0;transform:translateY(12px) scale(.96);transform-origin:bottom right;pointer-events:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.tg-teaser.show{opacity:1;transform:none;pointer-events:auto}
+.tg-teaser b{display:block;font-family:var(--display);font-size:17px;letter-spacing:-.01em;margin-bottom:4px}
+.tg-teaser button.x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:99px;border:0;background:transparent;color:var(--muted2);font-size:18px;line-height:1}
+.tg-teaser button.go{margin-top:10px;border:0;background:var(--accent);color:#fff;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;min-height:40px}
+.tg-panel{position:fixed;right:22px;bottom:104px;z-index:61;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100vh - 140px));display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(30,27,75,.55);border:1px solid rgba(14,17,22,.08);opacity:0;transform:translateY(16px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tg-panel.open{opacity:1;transform:none;pointer-events:auto}
+.tg-head{display:flex;align-items:center;gap:12px;padding:16px 16px 16px 18px;background:var(--ink);color:#fff;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px}
+.tg-head .av{position:relative;flex:0 0 46px}
+.tg-head img{width:46px;height:46px;border-radius:99px;object-fit:cover;border:2px solid var(--lime)}
+.tg-head .av i{position:absolute;right:0;bottom:0;width:12px;height:12px;border-radius:99px;background:#22C55E;border:2px solid var(--ink)}
+.tg-head b{display:block;font-family:var(--display);font-size:19px;letter-spacing:-.01em;line-height:1.1}
+.tg-head small{display:block;font-size:12.5px;color:#B8BFCC}
+.tg-head .sp{flex:1}
+.tg-head button{width:40px;height:40px;border-radius:99px;border:0;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center}
+.tg-head button:hover{background:rgba(255,255,255,.16)}
+.tg-log{flex:1;overflow-y:auto;padding:18px 16px 8px;display:flex;flex-direction:column;gap:10px;background:#F6F7F9;background-image:radial-gradient(rgba(14,17,22,.08) 1px,transparent 1.2px);background-size:18px 18px;scroll-behavior:smooth}
+.tg-msg{display:flex;gap:8px;align-items:flex-end;max-width:92%;animation:rise .4s var(--ease) both}
+.tg-msg img{width:28px;height:28px;border-radius:99px;object-fit:cover;flex:0 0 28px}
+.tg-msg .b{background:#fff;border:1px solid rgba(14,17,22,.06);border-radius:18px 18px 18px 6px;padding:11px 14px;font-size:14.5px;line-height:1.5;color:#1F2937;box-shadow:0 6px 16px -12px rgba(30,27,75,.35)}
+.tg-msg .b a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.tg-msg .b strong{color:var(--ink)}
+.tg-msg.me{align-self:flex-end;flex-direction:row-reverse}
+.tg-msg.me .b{background:var(--accent);color:#fff;border-color:transparent;border-radius:18px 18px 6px 18px}
+.tg-card{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.tg-card a.p{display:flex;gap:10px;align-items:center;padding:8px;border-radius:14px;background:#F6F7F9;text-decoration:none!important;color:var(--ink)!important;font-weight:600;transition:background .2s}
+.tg-card a.p:hover{background:#ECEBFF}
+.tg-card a.p img{width:56px;height:40px;border-radius:8px;object-fit:cover;flex:0 0 56px}
+.tg-card a.p span{font-size:13.5px;line-height:1.3}
+.tg-card a.p em{display:block;font-style:normal;font-weight:500;font-size:12px;color:var(--muted2)}
+.tg-typing{display:inline-flex;gap:4px;padding:4px 2px}
+.tg-typing i{width:7px;height:7px;border-radius:99px;background:#9CA3AF;animation:tgdot 1s infinite}
+.tg-typing i:nth-child(2){animation-delay:.15s}.tg-typing i:nth-child(3){animation-delay:.3s}
+@keyframes tgdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.tg-chips{display:flex;gap:8px;overflow-x:auto;padding:10px 14px 4px;background:#fff;scrollbar-width:none}
+.tg-chips::-webkit-scrollbar{display:none}
+.tg-chips button{flex:0 0 auto;min-height:38px;padding:0 14px;border-radius:999px;border:1px solid rgba(67,56,202,.25);background:#F5F5FF;color:#312E81;font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .2s,transform .2s}
+.tg-chips button:hover{background:#E8E7FF;transform:translateY(-1px)}
+.tg-form{display:flex;gap:8px;padding:10px 12px 12px;background:#fff;border-top:1px solid rgba(14,17,22,.06)}
+.tg-form input{flex:1;min-width:0;min-height:46px;padding:0 16px;border-radius:999px;border:1px solid #D1D5DB;background:#F9FAFB;font-size:15px;color:var(--ink)}
+.tg-form button{width:46px;height:46px;flex:0 0 46px;border-radius:999px;border:0;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center}
+.tg-note{padding:0 16px 10px;background:#fff;font-size:11.5px;color:#6B7280;text-align:center}
+.tk-spot{position:relative;animation:spot 2.6s var(--ease)}
+@keyframes spot{0%{box-shadow:0 0 0 0 rgba(67,56,202,0)}15%{box-shadow:0 0 0 6px rgba(67,56,202,.35),0 0 0 14px rgba(217,249,157,.5)}100%{box-shadow:0 0 0 0 rgba(67,56,202,0)}}
+@media (max-width:560px){
+  .tg-panel{right:12px;left:12px;width:auto;bottom:92px;height:calc(100vh - 120px);border-radius:24px}
+  .tg-launch{right:14px;bottom:14px;width:62px;height:62px}.tg-launch img{width:62px;height:62px}
+  .tg-teaser{right:14px;bottom:90px;max-width:calc(100vw - 28px)}
+}
+</style>
+
+<div class="tg-teaser" id="tg-teaser" role="dialog" aria-label="Welcome message from Tony">
+  <button class="x" type="button" aria-label="Dismiss welcome message" id="tg-teaser-x">×</button>
+  <b>Karibu, I'm Tony.</b>
+  <span id="tg-teaser-text">Thanks for stopping by. Want a 30-second tour of what I build?</span><br>
+  <button class="go" type="button" id="tg-teaser-go">Show me around</button>
+</div>
+
+<section class="tg-panel" id="tg-panel" role="dialog" aria-modal="false" aria-labelledby="tg-title" aria-hidden="true">
+  <div class="tg-head">
+    <span class="av"><img src="images/tony-avatar.jpg" alt=""><i></i></span>
+    <span><b id="tg-title">Tony</b><small>Your guide to this site · online</small></span>
+    <span class="sp"></span>
+    <button type="button" id="tg-restart" aria-label="Start over"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <button type="button" id="tg-close" aria-label="Close chat"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="tg-log" id="tg-log" aria-live="polite"></div>
+  <div class="tg-chips" id="tg-chips" role="group" aria-label="Suggested questions"></div>
+  <form class="tg-form" id="tg-form" autocomplete="off">
+    <label class="sr" for="tg-input">Ask Tony something</label>
+    <input id="tg-input" type="text" placeholder="Ask about a project, skill or hiring…" maxlength="300">
+    <button type="submit" aria-label="Send"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </form>
+  <div class="tg-note">Automated guide · for a real chat, message me on WhatsApp</div>
+</section>
+
+<button class="tg-launch" id="tg-launch" type="button" aria-expanded="false" aria-controls="tg-panel" aria-label="Chat with Tony, your guide">
+  <span class="ring" aria-hidden="true"></span>
+  <img src="images/tony-avatar.jpg" alt="">
+  <i aria-hidden="true"></i>
+</button>
+
+<script>
+(function () {
+  "use strict";
+  var TK = window.__TK || { PROJECTS: [], CATS: [] };
+  var P = TK.PROJECTS, AV = "images/tony-avatar.jpg";
+  var WA = "https://wa.me/254725621699", MAIL = "ktony7854@gmail.com", GH = "https://github.com/ktonysites";
+  var $ = function (id) { return document.getElementById(id); };
+  var panel = $("tg-panel"), log = $("tg-log"), chips = $("tg-chips"), input = $("tg-input"), launch = $("tg-launch"), teaser = $("tg-teaser");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var started = false, tourStep = -1;
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
+  function byId(id) { return P.filter(function (p) { return p.id === id; })[0]; }
+  function cur() { var h = (location.hash || "").slice(1); return byId(h); }
+
+  /* ---------- messages ---------- */
+  function add(html, me) {
+    var d = document.createElement("div");
+    d.className = "tg-msg" + (me ? " me" : "");
+    d.innerHTML = (me ? "" : '<img src="' + AV + '" alt="">') + '<div class="b">' + html + "</div>";
+    log.appendChild(d); log.scrollTop = log.scrollHeight;
+    return d;
+  }
+  function say(parts, then) {
+    parts = [].concat(parts);
+    var i = 0;
+    (function next() {
+      if (i >= parts.length) { if (then) then(); return; }
+      var t = add('<span class="tg-typing" aria-label="Tony is typing"><i></i><i></i><i></i></span>');
+      var text = parts[i++];
+      var delay = reduce ? 80 : Math.min(1100, 380 + text.replace(/<[^>]+>/g, "").length * 9);
+      setTimeout(function () { t.querySelector(".b").innerHTML = text; log.scrollTop = log.scrollHeight; next(); }, delay);
+    })();
+  }
+  function setChips(list) {
+    chips.innerHTML = list.map(function (c) { return '<button type="button" data-q="' + esc(c) + '">' + esc(c) + "</button>"; }).join("");
+  }
+  chips.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-q]"); if (!b) return;
+    ask(b.getAttribute("data-q"));
+  });
+
+  function projCard(list) {
+    return '<div class="tg-card">' + list.map(function (p) {
+      return '<a class="p" href="#' + p.id + '" data-close>' + (p.img ? '<img src="' + p.img + '" alt="">' : "") +
+        "<span>" + esc(p.title) + "<em>" + esc(p.c ? p.c.label : "") + "</em></span></a>";
+    }).join("") + "</div>";
+  }
+  log.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-close]");
+    if (a && window.innerWidth < 760) close();
+  });
+
+  /* ---------- navigation helpers ---------- */
+  function goTo(id) {
+    var home = { featured: 1, work: 1, skills: 1, about: 1, contact: 1, top: 1 };
+    if (home[id] && document.body.classList.contains("case")) { location.hash = id; }
+    var el = $(id); if (!el) return;
+    setTimeout(function () {
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      el.classList.remove("tk-spot"); void el.offsetWidth; el.classList.add("tk-spot");
+      setTimeout(function () { el.classList.remove("tk-spot"); }, 2700);
+    }, 60);
+  }
+
+  /* ---------- guided tour ---------- */
+  var TOUR = [
+    { id: "featured", text: "These are the five projects I'm proudest of — banking, SACCOs, ISP billing, property and delivery. Tap any card for the full story." },
+    { id: "work", text: "Here's everything I've built. Use the filters to jump to an industry — FinTech, PropTech, Logistics, HealthTech or E-Commerce." },
+    { id: "skills", text: "My toolkit: React, Node, Python/FastAPI, Supabase, Firebase — plus M-Pesa Daraja, Temenos T24 and MikroTik RouterOS integrations." },
+    { id: "about", text: "A bit about me and how I work. My rule: money has to reconcile, and software should survive bad networks." },
+    { id: "contact", text: "And this is where we talk. The form sends straight to my WhatsApp — or email me at <a href=\"mailto:" + MAIL + "\">" + MAIL + "</a>." }
+  ];
+  function tour(step) {
+    tourStep = step;
+    if (step >= TOUR.length) {
+      tourStep = -1;
+      say("That's the tour! Ask me anything — a project name, a skill, or how to hire me.");
+      setChips(["Show me your best work", "Fintech projects", "What's your stack?", "How do I hire you?"]);
+      return;
+    }
+    var s = TOUR[step];
+    goTo(s.id);
+    say("<strong>" + (step + 1) + "/" + TOUR.length + "</strong> · " + s.text);
+    setChips(step === TOUR.length - 1 ? ["Finish tour", "How do I hire you?"] : ["Next →", "Stop tour"]);
+  }
+
+  /* ---------- understanding questions ---------- */
+  var CAT_WORDS = {
+    fintech: ["fintech", "bank", "banking", "finance", "financial", "sacco", "payment", "payments", "mpesa", "m-pesa", "money", "loan", "t24", "isp", "wifi", "billing"],
+    proptech: ["proptech", "property", "properties", "rent", "rental", "landlord", "tenant", "real estate", "estate", "housing"],
+    logistics: ["logistics", "delivery", "deliveries", "food", "rider", "riders", "grocery", "restaurant", "order"],
+    health: ["health", "healthtech", "medical", "vitals", "nutrition", "wellness", "patient", "care"],
+    commerce: ["commerce", "ecommerce", "e-commerce", "shop", "store", "car", "cars", "bike", "bikes", "motorcycle", "phone", "phones", "fashion", "dealership"]
+  };
+  var ALIASES = {
+    "central-bank": ["central bank", "bank portal", "internet banking", "t24", "temenos", "visa", "maker checker", "maker-checker"],
+    "ushirikapro": ["ushirika", "ushirikapro", "sacco"],
+    "isp-billing": ["isp", "hotspot", "mikrotik", "wifi", "wi-fi", "timeless", "captive", "routeros"],
+    "mi-casa": ["mi casa", "micasa"],
+    "rentpro": ["rentpro", "rent pro"],
+    "kukia": ["kukia"],
+    "localeats": ["localeats", "local eats", "tracking", "gps"],
+    "afya-tech": ["afya", "vitals"],
+    "nourish-bloom": ["gillian", "nourish", "bloom", "nutrition"],
+    "cars-by-tyetye": ["tyetye", "revvo", "automarket", "cars", "dealership"],
+    "kenbo-bikes": ["kenbo", "bikes", "motorcycle", "boda"],
+    "sora-studios": ["sora"],
+    "phonestore-ke": ["phonestore", "phone store", "phones", "smartphone"]
+  };
+  function has(q, words) { return words.some(function (w) { return new RegExp("(^|[^a-z])" + w.replace(/[-]/g, "[- ]?") + "($|[^a-z])").test(q); }); }
+
+  function answer(raw) {
+    var q = " " + raw.toLowerCase().replace(/[^a-z0-9\s\-?]/g, " ").replace(/\s+/g, " ") + " ";
+    var here = cur();
+
+    if (tourStep >= 0) {
+      if (has(q, ["next", "continue", "yes", "ok", "okay", "go"])) return tour(tourStep + 1);
+      if (has(q, ["stop", "finish", "end", "exit"])) { tourStep = -1; if (has(q, ["finish"])) return tour(TOUR.length); say("No problem, tour stopped. What would you like to see?"); return setChips(["Show me your best work", "What's your stack?", "How do I hire you?"]); }
+      tourStep = -1;
+    }
+    if (has(q, ["tour", "show me around", "guide me", "walk me", "start"])) return tour(0);
+    if (has(q, ["hi", "hello", "hey", "habari", "mambo", "niaje", "sasa", "jambo", "good morning", "good afternoon", "good evening"]) && q.trim().split(" ").length <= 4) {
+      say("Hey! Karibu. I can walk you through my projects, my stack, or how to work with me.");
+      return setChips(["Take the tour", "Show me your best work", "How do I hire you?"]);
+    }
+    if (has(q, ["thank", "thanks", "asante", "cool", "nice", "great", "awesome"])) {
+      say("Asante sana! If something here fits what you need, I'd love to hear about it.");
+      return setChips(["How do I hire you?", "Show me your best work"]);
+    }
+    if (has(q, ["hire", "hiring", "work with", "contact", "reach", "talk", "email", "whatsapp", "call", "phone number", "quote", "price", "pricing", "cost", "rate", "rates", "budget", "available", "availability", "freelance", "job"])) {
+      goTo("contact");
+      say(["I'm available for projects. The fastest way to reach me is <a href=\"" + WA + "\" target=\"_blank\" rel=\"noopener\">WhatsApp (0725 621 699)</a>, or email <a href=\"mailto:" + MAIL + "\">" + MAIL + "</a>.",
+           "Pricing depends on scope — tell me what you need built in the form below and I'll come back with a plan and quote."]);
+      return setChips(["Show me your best work", "What's your stack?"]);
+    }
+    if (has(q, ["github", "code", "repo", "repository", "source"])) {
+      say("You'll find my code at <a href=\"" + GH + "\" target=\"_blank\" rel=\"noopener\">github.com/ktonysites</a>. (The central bank project is confidential client work, so that code isn't public.)");
+      return setChips(["Show me your best work", "How do I hire you?"]);
+    }
+    if (has(q, ["cv", "resume", "résumé", "linkedin"])) {
+      say("I'm putting my CV and LinkedIn together. Until then, message me on <a href=\"" + WA + "\" target=\"_blank\" rel=\"noopener\">WhatsApp</a> and I'll send it over.");
+      return setChips(["How do I hire you?", "What's your stack?"]);
+    }
+    if (has(q, ["where", "location", "based", "nairobi", "kenya", "remote", "located"])) {
+      say("I'm based in Nairobi, Kenya, and I work with clients locally and remotely.");
+      return setChips(["How do I hire you?", "Take the tour"]);
+    }
+    if (has(q, ["who are you", "about you", "about tony", "yourself", "your background", "experience", "bio"])) {
+      goTo("about");
+      say("I'm a full-stack web and mobile developer. I build systems that move money, manage property and get orders to people's doors — from core banking middleware to MikroTik billing engines and real-time delivery apps.");
+      return setChips(["What's your stack?", "Show me your best work", "How do I hire you?"]);
+    }
+    if (has(q, ["stack", "skills", "skill", "tech", "technologies", "tools", "languages", "framework", "frameworks", "react", "node", "python", "fastapi", "supabase", "firebase", "postgres", "postgresql"])) {
+      goTo("skills");
+      var hits = P.filter(function (p) { return p.stack.join(" ").toLowerCase().indexOf((q.match(/react|node|python|fastapi|supabase|firebase|postgre/) || [""])[0]) > -1 && q.match(/react|node|python|fastapi|supabase|firebase|postgre/); });
+      say(["Front-end: React, React Native/Expo, Tailwind. Back-end: Node/Express, PHP, Python/FastAPI. Data: PostgreSQL, Supabase (RLS), Firebase, SQLite.",
+           "My speciality is integrations — M-Pesa Daraja (STK Push), Temenos T24, Visa APIs and MikroTik RouterOS." + (hits.length ? " Projects using that:" + projCard(hits.slice(0, 4)) : "")]);
+      return setChips(["Fintech projects", "Show me your best work", "How do I hire you?"]);
+    }
+
+    /* specific project */
+    var found = null;
+    Object.keys(ALIASES).forEach(function (id) { if (!found && has(q, ALIASES[id])) found = byId(id); });
+    if (!found) P.forEach(function (p) { if (!found && q.indexOf(" " + p.title.toLowerCase().split(/[\s—&]+/)[0] + " ") > -1) found = p; });
+    var wantsBug = has(q, ["bug", "hardest", "challenge", "problem", "difficult", "tough"]);
+    var wantsLearn = has(q, ["learn", "learned", "lesson", "takeaway"]);
+    var wantsRole = has(q, ["role", "what did you do", "your part"]);
+    if (!found && here && (wantsBug || wantsLearn || wantsRole || has(q, ["this project", "this one", "tell me more", "more"]))) found = here;
+
+    if (found && !(has(q, ["projects"]) && !ALIASES[found.id].some(function (a) { return q.indexOf(a) > -1; }))) {
+      if (wantsBug) { say("<strong>The hardest part:</strong> " + esc(found.challenge)); return setChips(["What did you learn?", "What was your role?", "Next project"]); }
+      if (wantsLearn) { say(found.learned ? esc(found.learned) : "Still writing that one up — ask me on WhatsApp!"); return setChips(["Hardest bug?", "Show me your best work"]); }
+      if (wantsRole) { say("I was the <strong>" + esc(found.role) + "</strong>."); return setChips(["Hardest bug?", "What did you learn?"]); }
+      if (here !== found) location.hash = found.id;
+      say(["<strong>" + esc(found.title) + "</strong> — " + esc(found.short), "I was the " + esc(found.role) + ". I've opened the case study for you."]);
+      return setChips(["Hardest bug?", "What did you learn?", "Show me similar work"]);
+    }
+
+    if (has(q, ["similar", "next project", "more like"])) {
+      var base = here || P[0];
+      var sim = P.filter(function (p) { return p.cat === base.cat && p !== base; });
+      say(sim.length ? "Here's more " + esc(base.c.label) + " work:" + projCard(sim) : "That's the only one in that category — try another:" + projCard(P.slice(0, 3)));
+      return setChips(["Show me your best work", "How do I hire you?"]);
+    }
+
+    /* category */
+    var cat = null;
+    Object.keys(CAT_WORDS).forEach(function (k) { if (!cat && has(q, CAT_WORDS[k])) cat = k; });
+    if (cat) {
+      var list = P.filter(function (p) { return p.cat === cat; });
+      var label = (TK.CATS.filter(function (c) { return c.id === cat; })[0] || {}).label;
+      goTo("work");
+      var btn = document.querySelector('#filters button[data-f="' + cat + '"]'); if (btn) btn.click();
+      say("Here's my " + esc(label) + " work — I've filtered the project list for you too:" + projCard(list));
+      return setChips(["Hardest bug you fixed?", "What's your stack?", "How do I hire you?"]);
+    }
+    if (has(q, ["best", "top", "featured", "proud", "projects", "portfolio", "work", "show"])) {
+      goTo("featured");
+      say("These are my featured projects — tap one to read the case study:" + projCard(P.filter(function (p) { return p.featured; })));
+      return setChips(["Fintech projects", "Delivery apps", "Hardest bug you fixed?"]);
+    }
+    if (has(q, ["hardest", "bug", "challenge"])) {
+      var b = byId("central-bank") || P[0];
+      say("Probably the internet banking portal: clearing <strong>57 production-blocking issues</strong> before sign-off — maker-checker race conditions, token replay, multi-currency rounding and certificate chains." + projCard([b]));
+      return setChips(["Show me your best work", "What's your stack?"]);
+    }
+
+    say(["Good question — I don't have a scripted answer for that one.", "Try asking about a project (like <em>KUKIA</em> or <em>UshirikaPro</em>), a skill, or message me directly on <a href=\"" + WA + "\" target=\"_blank\" rel=\"noopener\">WhatsApp</a>."]);
+    setChips(["Take the tour", "Show me your best work", "How do I hire you?"]);
+  }
+
+  function ask(text) {
+    text = String(text || "").trim(); if (!text) return;
+    add(esc(text), true);
+    var t = text.toLowerCase();
+    if (t === "next →") return tour(tourStep + 1);
+    if (t === "stop tour") { tourStep = -1; say("Tour stopped. Ask me anything!"); return setChips(["Show me your best work", "What's your stack?", "How do I hire you?"]); }
+    if (t === "finish tour") return tour(TOUR.length);
+    if (t === "take the tour" || t === "show me around") return tour(0);
+    if (t === "delivery apps") return answer("delivery");
+    if (t === "hardest bug?") return answer("hardest bug this project");
+    if (t === "what did you learn?") return answer("what did you learn this project");
+    if (t === "what was your role?") return answer("role this project");
+    if (t === "show me similar work" || t === "next project") return answer("similar");
+    answer(text);
+  }
+
+  /* ---------- open / close ---------- */
+  function welcome() {
+    var p = cur();
+    var hour = new Date().getHours();
+    var greet = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+    if (p) {
+      say([greet + "! I'm Tony — I'm guessing you're curious about <strong>" + esc(p.title) + "</strong>.", "Want the hardest bug I fixed on it, or what I learned?"]);
+      setChips(["Hardest bug?", "What did you learn?", "What was your role?", "Show me similar work"]);
+    } else {
+      say([greet + " and karibu! I'm Tony, a full-stack developer from Nairobi.", "I'll be your guide. I can take you on a quick tour, show you a specific project, or tell you how we can work together."]);
+      setChips(["Take the tour", "Show me your best work", "Fintech projects", "What's your stack?", "How do I hire you?"]);
+    }
+  }
+  function open() {
+    hideTeaser();
+    panel.classList.add("open"); panel.setAttribute("aria-hidden", "false");
+    launch.setAttribute("aria-expanded", "true");
+    if (!started) { started = true; welcome(); }
+    setTimeout(function () { if (window.innerWidth > 760) input.focus(); }, 300);
+  }
+  function close() {
+    panel.classList.remove("open"); panel.setAttribute("aria-hidden", "true");
+    launch.setAttribute("aria-expanded", "false");
+  }
+  launch.addEventListener("click", function () { panel.classList.contains("open") ? close() : open(); });
+  $("tg-close").addEventListener("click", function () { close(); launch.focus(); });
+  $("tg-restart").addEventListener("click", function () { log.innerHTML = ""; tourStep = -1; welcome(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && panel.classList.contains("open")) { close(); launch.focus(); } });
+  $("tg-form").addEventListener("submit", function (e) { e.preventDefault(); var v = input.value; input.value = ""; ask(v); });
+
+  /* ---------- welcome teaser ---------- */
+  var seen = false;
+  try { seen = sessionStorage.getItem("tg-seen") === "1"; } catch (e) {}
+  function hideTeaser() { teaser.classList.remove("show"); try { sessionStorage.setItem("tg-seen", "1"); } catch (e) {} }
+  function showTeaser() {
+    if (seen || panel.classList.contains("open")) return;
+    var p = cur();
+    if (p) { $("tg-teaser-text").textContent = "You're looking at " + p.title.split(" — ")[0] + ". Want me to walk you through it?"; $("tg-teaser-go").textContent = "Walk me through it"; }
+    teaser.classList.add("show");
+  }
+  $("tg-teaser-x").addEventListener("click", hideTeaser);
+  $("tg-teaser-go").addEventListener("click", function () {
+    open();
+    if (!cur()) setTimeout(function () { ask("Take the tour"); }, reduce ? 200 : 2400);
+  });
+  document.addEventListener("tk:ready", function () { setTimeout(showTeaser, reduce ? 300 : 1800); });
+  if (!document.body.classList.contains("loading")) setTimeout(showTeaser, 1800);
+  setTimeout(function () { if (!teaser.classList.contains("show")) hideTeaser.call(null); }, 60000);
+})();
+</script>
+
+</body>
 </html>
