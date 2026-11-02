@@ -867,7 +867,7 @@ body.case #case{display:block}
 .tg-teaser b{display:block;font-family:var(--display);font-size:17px;letter-spacing:-.01em;margin-bottom:4px}
 .tg-teaser button.x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:99px;border:0;background:transparent;color:var(--muted2);font-size:18px;line-height:1}
 .tg-teaser button.go{margin-top:10px;border:0;background:var(--accent);color:#fff;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;min-height:40px}
-.tg-panel{position:fixed;right:22px;bottom:104px;z-index:61;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100vh - 140px));display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(30,27,75,.55);border:1px solid rgba(14,17,22,.08);opacity:0;transform:translateY(16px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tg-panel{position:fixed;right:22px;bottom:104px;z-index:61;width:min(370px,calc(100vw - 24px));height:min(540px,calc(100vh - 220px));min-height:300px;display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(30,27,75,.55);border:1px solid rgba(14,17,22,.08);opacity:0;transform:translateY(16px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
 .tg-panel.open{opacity:1;transform:none;pointer-events:auto}
 .tg-head{display:flex;align-items:center;gap:12px;padding:16px 16px 16px 18px;background:var(--ink);color:#fff;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px}
 .tg-head .av{position:relative;flex:0 0 46px}
@@ -904,10 +904,22 @@ body.case #case{display:block}
 .tg-form input{flex:1;min-width:0;min-height:46px;padding:0 16px;border-radius:999px;border:1px solid #D1D5DB;background:#F9FAFB;font-size:15px;color:var(--ink)}
 .tg-form button{width:46px;height:46px;flex:0 0 46px;border-radius:999px;border:0;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center}
 .tg-note{padding:0 16px 10px;background:#fff;font-size:11.5px;color:#6B7280;text-align:center}
+.tg-tip{position:fixed;right:22px;bottom:104px;z-index:61;width:min(340px,calc(100vw - 24px));background:var(--ink);color:#F6F7F9;border-radius:22px 22px 6px 22px;padding:16px 18px;box-shadow:0 24px 50px -20px rgba(14,17,22,.6);font-size:14.5px;line-height:1.5;opacity:0;transform:translateY(12px) scale(.96);transform-origin:bottom right;pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tg-tip.show{opacity:1;transform:none;pointer-events:auto}
+.tg-tip .k{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime)}
+.tg-tip .k img{width:26px;height:26px;border-radius:99px;object-fit:cover}
+.tg-tip .k .bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}
+.tg-tip .k .bar i{display:block;height:100%;background:var(--lime);transition:width .4s var(--ease)}
+.tg-tip a{color:var(--lime);text-decoration:underline}
+.tg-tip .acts{display:flex;gap:8px;margin-top:12px}
+.tg-tip .acts button{min-height:40px;padding:0 16px;border-radius:999px;border:0;font-size:14px;font-weight:600}
+.tg-tip .acts .nx{background:var(--lime);color:var(--ink)}
+.tg-tip .acts .st{background:rgba(255,255,255,.1);color:#fff}
 .tk-spot{position:relative;animation:spot 2.6s var(--ease)}
 @keyframes spot{0%{box-shadow:0 0 0 0 rgba(67,56,202,0)}15%{box-shadow:0 0 0 6px rgba(67,56,202,.35),0 0 0 14px rgba(217,249,157,.5)}100%{box-shadow:0 0 0 0 rgba(67,56,202,0)}}
 @media (max-width:560px){
-  .tg-panel{right:12px;left:12px;width:auto;bottom:92px;height:calc(100vh - 120px);border-radius:24px}
+  .tg-panel{right:10px;left:10px;width:auto;bottom:86px;height:min(56vh,500px);min-height:0;border-radius:24px}
+  .tg-tip{right:10px;left:10px;max-width:none;bottom:86px}
   .tg-launch{right:14px;bottom:14px;width:62px;height:62px}.tg-launch img{width:62px;height:62px}
   .tg-teaser{right:14px;bottom:90px;max-width:calc(100vw - 28px)}
 }
@@ -937,6 +949,12 @@ body.case #case{display:block}
   </form>
   <div class="tg-note">Automated guide · for a real chat, message me on WhatsApp</div>
 </section>
+
+<div class="tg-tip" id="tg-tip" role="status" aria-live="polite">
+  <div class="k"><img src="images/tony-avatar.jpg" alt=""><span id="tg-tip-step">1/5</span><span class="bar"><i id="tg-tip-bar" style="width:20%"></i></span></div>
+  <div id="tg-tip-text"></div>
+  <div class="acts"><button type="button" class="nx" id="tg-tip-next">Next →</button><button type="button" class="st" id="tg-tip-stop">End tour</button></div>
+</div>
 
 <button class="tg-launch" id="tg-launch" type="button" aria-expanded="false" aria-controls="tg-panel" aria-label="Chat with Tony, your guide">
   <span class="ring" aria-hidden="true"></span>
@@ -1017,19 +1035,40 @@ body.case #case{display:block}
     { id: "about", text: "A bit about me and how I work. My rule: money has to reconcile, and software should survive bad networks." },
     { id: "contact", text: "And this is where we talk. The form sends straight to my WhatsApp — or email me at <a href=\"mailto:" + MAIL + "\">" + MAIL + "</a>." }
   ];
+  var tip = $("tg-tip"), tipTimer = null;
+  function hideTip() { tip.classList.remove("show"); clearTimeout(tipTimer); }
   function tour(step) {
     tourStep = step;
+    close(true);
     if (step >= TOUR.length) {
       tourStep = -1;
-      say("That's the tour! Ask me anything — a project name, a skill, or how to hire me.");
+      $("tg-tip-step").textContent = "Done"; $("tg-tip-bar").style.width = "100%";
+      $("tg-tip-text").innerHTML = "That's the tour! Tap my photo anytime to ask about a project, a skill, or how to hire me.";
+      $("tg-tip-next").textContent = "Ask Tony"; $("tg-tip-stop").textContent = "Close";
+      tip.classList.add("show");
+      add("That was the tour. Ask me anything — a project name, a skill, or how to hire me.");
       setChips(["Show me your best work", "Fintech projects", "What's your stack?", "How do I hire you?"]);
+      clearTimeout(tipTimer); tipTimer = setTimeout(hideTip, 8000);
       return;
     }
     var s = TOUR[step];
     goTo(s.id);
-    say("<strong>" + (step + 1) + "/" + TOUR.length + "</strong> · " + s.text);
-    setChips(step === TOUR.length - 1 ? ["Finish tour", "How do I hire you?"] : ["Next →", "Stop tour"]);
+    $("tg-tip-step").textContent = (step + 1) + "/" + TOUR.length;
+    $("tg-tip-bar").style.width = ((step + 1) / TOUR.length * 100) + "%";
+    $("tg-tip-text").innerHTML = s.text;
+    $("tg-tip-next").textContent = step === TOUR.length - 1 ? "Finish" : "Next →";
+    $("tg-tip-stop").textContent = "End tour";
+    tip.classList.add("show");
+    add("<strong>" + (step + 1) + "/" + TOUR.length + "</strong> · " + s.text);
+    clearTimeout(tipTimer);
   }
+  $("tg-tip-next").addEventListener("click", function () {
+    if (tourStep >= 0) tour(tourStep + 1); else { hideTip(); open(); }
+  });
+  $("tg-tip-stop").addEventListener("click", function () {
+    var was = tourStep >= 0; tourStep = -1; hideTip();
+    if (was) { add("Tour stopped. Ask me anything!"); setChips(["Show me your best work", "What's your stack?", "How do I hire you?"]); }
+  });
 
   /* ---------- understanding questions ---------- */
   var CAT_WORDS = {
@@ -1118,7 +1157,7 @@ body.case #case{display:block}
       if (wantsBug) { say("<strong>The hardest part:</strong> " + esc(found.challenge)); return setChips(["What did you learn?", "What was your role?", "Next project"]); }
       if (wantsLearn) { say(found.learned ? esc(found.learned) : "Still writing that one up — ask me on WhatsApp!"); return setChips(["Hardest bug?", "Show me your best work"]); }
       if (wantsRole) { say("I was the <strong>" + esc(found.role) + "</strong>."); return setChips(["Hardest bug?", "What did you learn?"]); }
-      if (here !== found) location.hash = found.id;
+      if (here !== found) { location.hash = found.id; if (window.innerWidth < 760) setTimeout(close, 1400); }
       say(["<strong>" + esc(found.title) + "</strong> — " + esc(found.short), "I was the " + esc(found.role) + ". I've opened the case study for you."]);
       return setChips(["Hardest bug?", "What did you learn?", "Show me similar work"]);
     }
@@ -1138,6 +1177,7 @@ body.case #case{display:block}
       var label = (TK.CATS.filter(function (c) { return c.id === cat; })[0] || {}).label;
       goTo("work");
       var btn = document.querySelector('#filters button[data-f="' + cat + '"]'); if (btn) btn.click();
+      if (window.innerWidth < 760) setTimeout(close, 1800);
       say("Here's my " + esc(label) + " work — I've filtered the project list for you too:" + projCard(list));
       return setChips(["Hardest bug you fixed?", "What's your stack?", "How do I hire you?"]);
     }
@@ -1186,7 +1226,7 @@ body.case #case{display:block}
     }
   }
   function open() {
-    hideTeaser();
+    hideTeaser(); hideTip(); tourStep = -1;
     panel.classList.add("open"); panel.setAttribute("aria-hidden", "false");
     launch.setAttribute("aria-expanded", "true");
     if (!started) { started = true; welcome(); }
@@ -1196,6 +1236,14 @@ body.case #case{display:block}
     panel.classList.remove("open"); panel.setAttribute("aria-hidden", "true");
     launch.setAttribute("aria-expanded", "false");
   }
+  // Clicking or tapping anywhere on the page minimises the chat, so the site is never blocked.
+  document.addEventListener("pointerdown", function (e) {
+    if (!panel.classList.contains("open")) return;
+    if (e.target.closest("#tg-panel, #tg-launch, #tg-teaser, #tg-tip")) return;
+    close();
+  });
+  // Links inside chat answers (project cards) close the chat on small screens so the page can be seen.
+  log.addEventListener("click", function (e) { if (e.target.closest("a[href^='#']") && window.innerWidth < 760) close(); });
   launch.addEventListener("click", function () { panel.classList.contains("open") ? close() : open(); });
   $("tg-close").addEventListener("click", function () { close(); launch.focus(); });
   $("tg-restart").addEventListener("click", function () { log.innerHTML = ""; tourStep = -1; welcome(); });
@@ -1214,8 +1262,9 @@ body.case #case{display:block}
   }
   $("tg-teaser-x").addEventListener("click", hideTeaser);
   $("tg-teaser-go").addEventListener("click", function () {
-    open();
-    if (!cur()) setTimeout(function () { ask("Take the tour"); }, reduce ? 200 : 2400);
+    hideTeaser();
+    if (!started) { started = true; add("Karibu! I'm Tony, a full-stack developer from Nairobi. Let me show you around."); }
+    if (cur()) open(); else tour(0);
   });
   document.addEventListener("tk:ready", function () { setTimeout(showTeaser, reduce ? 300 : 1800); });
   if (!document.body.classList.contains("loading")) setTimeout(showTeaser, 1800);
