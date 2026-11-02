@@ -175,8 +175,8 @@ section.block{padding-top:128px}
 .card.lead p{font-size:17px}
 .hard{padding:16px 18px;border-radius:16px;background:var(--bg);font-size:15px;color:#3B4252}
 .linkbtn{align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0;background:transparent;color:var(--accent);font-weight:600;font-size:15px}
-.b-lead{grid-column:span 7;grid-row:span 2}.b-side{grid-column:span 5}.b-half{grid-column:span 6}
-@media (max-width:960px){.b-lead,.b-side,.b-half{grid-column:span 12;grid-row:auto}.hide-sm{display:none!important}}
+.b-lead{grid-column:span 7}.b-side{grid-column:span 5}.b-half{grid-column:span 6}.b-third{grid-column:span 4}
+@media (max-width:960px){.b-lead,.b-side,.b-half,.b-third{grid-column:span 12;grid-row:auto}.hide-sm{display:none!important}}
 
 /* ---------- Project list ---------- */
 .filters{margin:36px 0 24px;display:flex;flex-wrap:wrap;gap:8px}
@@ -676,7 +676,7 @@ body.case #case{display:block}
   $("stat-count").textContent = PROJECTS.length;
 
   var featured = PROJECTS.filter(function (p) { return p.featured; });
-  var spans = ["b-lead", "b-side", "b-side", "b-half", "b-half"];
+  var spans = ["b-lead", "b-side", "b-third", "b-third", "b-third"];
   $("bento").innerHTML = featured.map(function (p, i) {
     var lead = i === 0;
     return '<article class="card reveal ' + (lead ? "lead " : "") + spans[i] + '" style="background:' + p.c.tint + '">' +
